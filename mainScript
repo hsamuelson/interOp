@@ -1,0 +1,19 @@
+#Parser#
+**R
+x <- c(1:10)
+print(x)
+**/
+
+**python
+
+x = 1
+print(x)
+
+**/
+
+**R
+x <- c(1:10)
+y <- x^2
+print(y)
+print(x)
+**/
