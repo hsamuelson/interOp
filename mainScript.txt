@@ -7,9 +7,9 @@ print(x)
 **python
 
 x = 1
-y = "hello"
 print(x)
-
+y = "hello"
+print(y)
 **/
 
 **R
@@ -17,4 +17,10 @@ x <- c(1:10)
 y <- x^2
 print(y)
 print(x)
+**/
+
+**js
+console.log("This is js");
+var x = 2;
+console.log(x);
 **/
