@@ -1,17 +1,20 @@
 #Parser#
+name1
 **R
+
 x <- c(1:10)
 print(x)
 **/
 
+
+module2
 **python
 
-x = 1
+x = 3
 print(x)
-y = "hello"
-print(y)
 **/
 
+moduu
 **R
 x <- c(1:10)
 y <- x^2
@@ -19,8 +22,20 @@ print(y)
 print(x)
 **/
 
+rtester
+**R
+args <- commandArgs(trailingOnly = TRUE)
+
+qwe <- function(asd){
+  return(as.integer(asd)^2)
+}
+qwe(args[1]) 
+**/
+
+**<< module2 rtester
+
+testname
 **js
-console.log("This is js");
 var x = 2;
 console.log(x);
 **/
