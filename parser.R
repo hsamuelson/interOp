@@ -107,6 +107,7 @@ for(i in 1:length(script)){
         file.create("pipeRun.js")
         writeLines(as.character(firstRange), con = "pipeRun.js", sep = "\n", useBytes = FALSE)
         processedData <<- shell("node pipeRun.js")
+        file.remove("pipeRun.js")
       }
       if(script[firstLower] == "**R"){
         
@@ -115,6 +116,7 @@ for(i in 1:length(script)){
         file.create("pipeRun.py")
         writeLines(as.character(firstRange), con = "pipeRun.py", sep = "\n", useBytes = FALSE)
         processedData <<- shell("python pipeRun.py", intern = T)
+        file.remove("pipeRun.py")
       }
       
       # Find second lanaguge and then run it
@@ -126,7 +128,7 @@ for(i in 1:length(script)){
         file.create("pipeRun.R")
         writeLines(as.character(secondRange), con = "pipeRun.R", sep = "\n", useBytes = FALSE)
         outputData <<- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "pipeRun.R" , processedData), intern = T)
-        
+        file.remove("pipeRun.R")
       }
       if(script[secondLower] == "**python"){
         
