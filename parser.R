@@ -81,7 +81,7 @@ for(i in 1:length(titleRows)){
 for(i in 1:length(script)){
   if(length(strsplit(script[i], " ")[[1]]) == 3){ #If this is true process the module
     if(strsplit(script[i], " ")[[1]][1] == "**<<"){
-      pipeLine <- strsplit(script[35], " ")[[1]]
+      pipeLine <- strsplit(script[i], " ")[[1]]
       #pipeLine[2] #js mod name
       #pipeLine[3] #R  mode name
       
