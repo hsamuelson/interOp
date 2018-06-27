@@ -12,23 +12,23 @@ script <- readLines("mainScript.txt")
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
-updatedScript <- 0
-counter <- 1
-# Remove Spaces
-for(i in 1:length(script)){
-  if(script[i] != ""){
-    updatedScript[counter] <- script[i]
-    counter = counter + 1
-  }
-}
-
-for(i in 1:length(script)){
-  if(isTRUE(strsplit(script[i], "")[[1]][1] != "#")){
-    updatedScript[counter] <- script[i]
-    counter = counter + 1
-  }
-}
-script <- updatedScript
+# updatedScript <- 0
+# counter <- 1
+# # Remove Spaces
+# for(i in 1:length(script)){
+#   if(script[i] != ""){
+#     updatedScript[counter] <- script[i]
+#     counter = counter + 1
+#   }
+# }
+# 
+# for(i in 1:length(script)){
+#   if(isTRUE(strsplit(script[i], "")[[1]][1] != "#")){
+#     updatedScript[counter] <- script[i]
+#     counter = counter + 1
+#   }
+# }
+# script <- updatedScript
 
 # takes the processed script as input
 findBounds <- function(script, startingVal = 1){
@@ -102,78 +102,11 @@ processFunction <- function(indexIn, argument = ""){
   }
 }
 
-
-#This processes Pipelines 
-for(i in 1:length(script)){
-  if(length(strsplit(script[i], " ")[[1]]) == 3){ #If this is true process the module
-    if(strsplit(script[i], " ")[[1]][2] == "**<<"){
-      pipeLine <- strsplit(script[i], " ")[[1]]
-      #pipeLine[2] #js mod name
-      #pipeLine[3] #R  mode name
-      
-      #First pipe
-      firstPipe <- allbounds[allbounds[,3] %in% pipeLine[1],]
-      firstLower <- as.integer(firstPipe[1])
-      firstUpper <- as.integer(firstPipe[2])
-      
-      firstRange <- script[((firstLower+1):(firstUpper-1)),]
-      print(firstRange)
-      #Second Pipe
-      secondPipe <- allbounds[allbounds[,3] %in% pipeLine[3],]
-      secondLower <- as.integer(secondPipe[1])
-      secondUpper <- as.integer(secondPipe[2])
-      
-      secondRange <- script[((secondLower+1):(secondUpper-1)),]
-      print(secondRange)
-      
-      #js goes into r first into second 
-      # So find the first value first
-      #processedData <- 0 
-      if(script[firstLower] == "**js"){
-        file.create("pipeRun.js")
-        writeLines(as.character(firstRange), con = "pipeRun.js", sep = "\n", useBytes = FALSE)
-        processedData <<- shell("node pipeRun.js")
-        file.remove("pipeRun.js")
-      }
-      if(script[firstLower] == "**R"){
-        
-      }
-      if(script[firstLower] == "**python"){
-        file.create("pipeRun.py")
-        writeLines(as.character(firstRange), con = "pipeRun.py", sep = "\n", useBytes = FALSE)
-        processedData <<- shell("python pipeRun.py", intern = T)
-        file.remove("pipeRun.py")
-        print("this is the python processed data")
-        print(processedData)
-      }
-      
-      # Find second lanaguge and then run it
-      
-      if(script[secondLower] == "**js"){
-        
-      }
-      if(script[secondLower] == "**R"){
-        file.create("pipeRun.R")
-        writeLines(as.character(secondRange), con = "pipeRun.R", sep = "\n", useBytes = FALSE)
-        outputData <<- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "pipeRun.R" , processedData), intern = T)
-        file.remove("pipeRun.R")
-        outputData <<- strsplit(outputData, "")[[1]][5:length(strsplit(outputData,"")[[1]])] # removes a [1]__ from the front of the output
-        print("THis is the R processed data")
-        print(outputData)
-      }
-      if(script[secondLower] == "**python"){
-        
-      }
-      
-    }
-  }
-}
-
 testPiper <- function(firstFunc, secondFunc){
   
   #Run first return output
-  firstFunc <- processFunction(firstFunc) #Now it has the output val of first funct
-  secondFunc <- processFunction(secondFunc, firstFunc)
+  firstFunc <- processFunction(match(firstFunc, allbounds[,3])) #Now it has the output val of first funct
+  secondFunc <- processFunction(match(secondFunc,allbounds[,3]), firstFunc)
   return(secondFunc)
   
 }
@@ -206,15 +139,15 @@ master <- function(){
         
         
       }
-      #################
-      # if(length(headTag) == 3){
-      #   if(headTag[2] == "**<<"){
-      #     #Then we need to pass both func bounds
-      #     testPiper(headTag[1], headTag[3])
-      # 
-      #   }
-      # }
+      ################
+      if(length(headTag) == 3){
+        if(headTag[2] == "**<<"){
+          #Then we need to pass both func bounds
+          print(headTag)
+          print(testPiper(headTag[1], headTag[3]))
+        }
+      }
     }
   }
 }
-
+master()
