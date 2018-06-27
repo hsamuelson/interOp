@@ -1,4 +1,4 @@
-#Parser#
+#PARSER#
 name1
 **R
 
@@ -6,6 +6,7 @@ x <- c(1:10)
 print(x)
 **/
 
+# This is a comment
 
 module2
 **python

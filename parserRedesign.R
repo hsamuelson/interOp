@@ -60,8 +60,9 @@ processBounds <- function(){
 
 allbounds <- processBounds()
 titleRows <- as.integer(allbounds[,1])
-for(i in 1:length(titleRows)){
-  w <- script[(as.integer(allbounds[i,1])+1):(as.integer(allbounds[i,2])- 1),]
+#for(i in 1:length(titleRows)){
+processFunction <- function(indexIn){
+  w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
   
   if(script[titleRows[i],] == "**R"){
     # Write to file and run
@@ -70,6 +71,7 @@ for(i in 1:length(titleRows)){
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R"), intern = T)
     file.remove("runner.R")
     print(result)
+    return(result)
   }
   if(script[titleRows[i],] == "**python"){
     # Write to file and run
@@ -78,12 +80,17 @@ for(i in 1:length(titleRows)){
     result <- shell("python runner.py", intern = T)
     file.remove("runner.py")
     print(result)
+    return(result)
+    
   }
   if(script[titleRows[i],] == "**js"){
     file.create("runner.js")
     writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
     result <- shell(paste("node runner.js"), intern = T)
     file.remove("runner.js")
+    print(result)
+    return(result)
+    
   }
 }
 
@@ -157,5 +164,14 @@ for(i in 1:length(script)){
 master <- function(){
   for(i in 1:length(script)){
     headTag <- strsplit(script[i], " ")[[1]]
+    
+    #Process function call
+    if(headTag[1] = "**"){ #function decloration syntax
+      
+      #Run function
+      funcName <- headTag[2]
+      allBoundsIndex <- match(funcName, allbounds[,3])
+    }
   }
 }
+
