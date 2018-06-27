@@ -33,7 +33,10 @@ qwe <- function(asd){
 qwe(args[1]) 
 **/
 
-**<< module2 rtester
+** name1 
+** module2
+** rtester 4
+module2 **<< rtester
 
 testname
 **js

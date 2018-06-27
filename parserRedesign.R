@@ -11,9 +11,17 @@ script <- readLines("mainScript.txt")
 # From loading from a file have to conver to table matrix
 script <- as.matrix(script)
 
-# Remove all comments
+# Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
 updatedScript <- 0
 counter <- 1
+# Remove Spaces
+for(i in 1:length(script)){
+  if(script[i] != ""){
+    updatedScript[counter] <- script[i]
+    counter = counter + 1
+  }
+}
+
 for(i in 1:length(script)){
   if(isTRUE(strsplit(script[i], "")[[1]][1] != "#")){
     updatedScript[counter] <- script[i]
@@ -61,34 +69,34 @@ processBounds <- function(){
 allbounds <- processBounds()
 titleRows <- as.integer(allbounds[,1])
 #for(i in 1:length(titleRows)){
-processFunction <- function(indexIn){
+processFunction <- function(indexIn, argument = ""){
   w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
   
-  if(script[titleRows[i],] == "**R"){
+  if(script[titleRows[indexIn],] == "**R"){
     # Write to file and run
     file.create("runner.R")
     writeLines(as.character(w), con = "runner.R", sep = "\n",  useBytes = FALSE) # auto indents lines
-    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R"), intern = T)
+    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R", argument), intern = T)
     file.remove("runner.R")
-    print(result)
+    #print(result)
     return(result)
   }
-  if(script[titleRows[i],] == "**python"){
+  if(script[titleRows[indexIn],] == "**python"){
     # Write to file and run
     file.create("runner.py")
     writeLines(as.character(w), con = "runner.py", sep = "\n",  useBytes = FALSE) 
-    result <- shell("python runner.py", intern = T)
+    result <- shell(paste("python runner.py", argument), intern = T)
     file.remove("runner.py")
-    print(result)
+    #print(result)
     return(result)
     
   }
-  if(script[titleRows[i],] == "**js"){
+  if(script[titleRows[indexIn],] == "**js"){
     file.create("runner.js")
     writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("node runner.js"), intern = T)
+    result <- shell(paste("node runner.js", argument), intern = T)
     file.remove("runner.js")
-    print(result)
+    #print(result)
     return(result)
     
   }
@@ -98,13 +106,13 @@ processFunction <- function(indexIn){
 #This processes Pipelines 
 for(i in 1:length(script)){
   if(length(strsplit(script[i], " ")[[1]]) == 3){ #If this is true process the module
-    if(strsplit(script[i], " ")[[1]][1] == "**<<"){
+    if(strsplit(script[i], " ")[[1]][2] == "**<<"){
       pipeLine <- strsplit(script[i], " ")[[1]]
       #pipeLine[2] #js mod name
       #pipeLine[3] #R  mode name
       
       #First pipe
-      firstPipe <- allbounds[allbounds[,3] %in% pipeLine[2],]
+      firstPipe <- allbounds[allbounds[,3] %in% pipeLine[1],]
       firstLower <- as.integer(firstPipe[1])
       firstUpper <- as.integer(firstPipe[2])
       
@@ -161,16 +169,51 @@ for(i in 1:length(script)){
   }
 }
 
+testPiper <- function(firstFunc, secondFunc){
+  
+  #Run first return output
+  firstFunc <- processFunction(firstFunc) #Now it has the output val of first funct
+  secondFunc <- processFunction(secondFunc, firstFunc)
+  return(secondFunc)
+  
+}
 master <- function(){
   for(i in 1:length(script)){
-    headTag <- strsplit(script[i], " ")[[1]]
     
-    #Process function call
-    if(headTag[1] = "**"){ #function decloration syntax
+    # Ignore Spaces
+    if(length(strsplit(script[i], " ")[[1]]) != 0){ #If its zero then its def a space
       
-      #Run function
-      funcName <- headTag[2]
-      allBoundsIndex <- match(funcName, allbounds[,3])
+      headTag <- strsplit(script[i], " ")[[1]]
+      
+      #Process function call
+      #
+      # THis the main function runner #####
+      # 
+      # ############
+      if(headTag[1] == "**"){ #function decloration syntax
+        
+        #Run function
+        funcName <- headTag[2]
+        allBoundsIndex <- match(funcName, allbounds[,3])
+        if(length(headTag) == 3){
+          output <- processFunction(allBoundsIndex, argument = headTag[3])
+        } else {
+          output <- processFunction(allBoundsIndex)
+        }
+        print(output)
+        
+        
+        
+        
+      }
+      #################
+      # if(length(headTag) == 3){
+      #   if(headTag[2] == "**<<"){
+      #     #Then we need to pass both func bounds
+      #     testPiper(headTag[1], headTag[3])
+      # 
+      #   }
+      # }
     }
   }
 }
