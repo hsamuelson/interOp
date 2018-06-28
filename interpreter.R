@@ -4,10 +4,21 @@
 # This is the main interpreter. This is used to read through the file and call the respective libraries
 # 
 
+# TO read console input for ths program
+args <- commandArgs(trailingOnly = TRUE)
+loadScrit <- function(){
+  fileName <- ""
+  if(is.na(args[1])){
+    fileName <- choose.files()
+  } else if(args[1] == 1){
+    fileName <- "mainScript.txt"
+  } else {
+    fileName <- args[1]
+  }
+  return(fileName)
+}
 
-
-
-script <- readLines("mainScript.txt")
+script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
 # From loading from a file have to conver to table matrix
 script <- as.matrix(script)
 
@@ -70,7 +81,7 @@ allbounds <- processBounds()
 titleRows <- as.integer(allbounds[,1])
 source("processRequest.R")
 
-testPiper <- function(firstFunc, secondFunc){
+Piper <- function(firstFunc, secondFunc){
   
   #Run first return output
   firstFunc <- processFunction(match(firstFunc, allbounds[,3])) #Now it has the output val of first funct
@@ -109,7 +120,7 @@ master <- function(){
         if(headTag[2] == "**<<"){
           #Then we need to pass both func bounds
           #print(headTag)
-          print(testPiper(headTag[1], headTag[3]))
+          print(Piper(headTag[1], headTag[3]))
         }
       }
     }
