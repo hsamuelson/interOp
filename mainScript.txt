@@ -73,6 +73,17 @@ echo hi again
 
 **/
 
+testRust
+**rust
+fn main() {
+    // The statements here will be executed when the compiled binary is called
+
+    // Print text to the console
+    println!("Hello World! from rust");
+}
+**/
+
+
 ** name1 
 ** module2
 ** rtester 4
@@ -82,6 +93,8 @@ module2 **<< rtester
 ** goMod 4
 ** testElixir
 ** testBat
+** testRust
+
 
 testname
 **js

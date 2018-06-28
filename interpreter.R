@@ -36,7 +36,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir" || script[i,] == "**bat"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir" || script[i,] == "**bat" || script[i,] == "**rust"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){

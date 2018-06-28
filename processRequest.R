@@ -56,13 +56,24 @@ processFunction <- function(indexIn, argument = ""){
     writeLines(as.character(w), con = "runner.bat", sep = "\n", useBytes = FALSE)
     result <- shell(paste("runner.bat", argument), intern = T)
     file.remove("runner.bat")
-    try( 
-      for(i in 1:length(result)){
+    try(
+      for(i in 1:length(result)){  #This is to remove the spacing & console prompt output
         if(result[i] == ""){
           result = result[-(i:(i+1))]
         }
       },
       silent=TRUE)
+    return(result)
+  }
+  if(script[titleRows[indexIn],] == "**rust"){
+    file.create("runner.rs")
+    writeLines(as.character(w), con = "runner.rs", sep = "\n", useBytes = FALSE)
+    shell("rustc runner.rs", intern = T)
+    result <- shell(paste("runner.exe", argument), intern = T)
+    
+    file.remove("runner.exe") # .rs files compile into .exe and .pdb which tha can be run
+    file.remove("runner.pdb")
+    file.remove("runner.rs")
     return(result)
   }
 }

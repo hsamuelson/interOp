@@ -17,8 +17,8 @@ lua:
 https://github.com/rjpcomputing/luaforwindows/releases <br>
 GO:
 https://golang.org/doc/install?download=go1.10.3.windows-amd64.msi <br>
-Elixir: https://repo.hex.pm/elixir-websetup.exe
-
+Elixir: https://repo.hex.pm/elixir-websetup.exe <br>
+Rust : https://win.rustup.rs/ <br>
 ## Language Support
 Other Versions of the langauges work, these are just the tested versions
 <center>
@@ -32,6 +32,7 @@ Other Versions of the langauges work, these are just the tested versions
 | Go |1.10.3| X | X |  |  
 | Elixir |1.6.6| X | |    |
 | Batch |win10| X |X |    |
+| Rust |1.27.0| X | |    |
 </center>
 
 
