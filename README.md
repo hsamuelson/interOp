@@ -31,4 +31,7 @@ To run a module simply type ```** moduleName```. It is important to note, the mo
   To pass a module an argument simply do: ``` ** moduleName arg```
   ### Pipe Operators 
   The pipe operator is ```**<<```. To input the output of one module into another is straight forward. To input ```mod1``` into ```mod2``` simply write: ```mod1 **<< mod2```. So far this is not supported with all languages. 
-##
+## Compiling InterOp
+For now, simply run the batfile: ```interOp.bat``` from cmd. The interpreter only reads from one file ```mainscript.txt```.
+#### From R:
+You can also run the ```interpreter.R``` file to process the code. If you want to run it in a live R enviorment, simply load ```interpreter.R``` and then run ```master()``` to re-run code.
