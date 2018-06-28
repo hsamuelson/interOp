@@ -1,7 +1,7 @@
 #
-# Henry Samuelson
+# Henry Samuelson 6/27/18
 # 
-# This is the main parser. This is used to read through the file and call the respective libraries
+# This is the main interpreter. This is used to read through the file and call the respective libraries
 # 
 
 
@@ -135,15 +135,12 @@ master <- function(){
         }
         print(output)
         
-        
-        
-        
       }
       ################
       if(length(headTag) == 3){
         if(headTag[2] == "**<<"){
           #Then we need to pass both func bounds
-          print(headTag)
+          #print(headTag)
           print(testPiper(headTag[1], headTag[3]))
         }
       }
