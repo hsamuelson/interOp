@@ -50,12 +50,24 @@ function fact (n)
 
 **/
 
+goMod
+**go
+package main
+import "os"
+import "fmt"
+func main() {
+    arg := os.Args[1]
+    fmt.Println(arg)
+}
+**/
+
 ** name1 
 ** module2
 ** rtester 4
 module2 **<< rtester
 
 ** luaTest 7
+** goMod 4
 
 testname
 **js

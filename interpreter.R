@@ -36,7 +36,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){
@@ -105,6 +105,13 @@ processFunction <- function(indexIn, argument = ""){
     writeLines(as.character(w), con = "runner.lua", sep = "\n", useBytes = FALSE)
     result <- shell(paste("lua runner.lua", argument), intern = T)
     file.remove("runner.lua")
+    return(result)
+  }
+  if(script[titleRows[indexIn],] == "**go"){
+    file.create("runner.go")
+    writeLines(as.character(w), con = "runner.go", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("go run runner.go", argument), intern = T)
+    file.remove("runner.go")
     return(result)
   }
 }
