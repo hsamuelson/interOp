@@ -16,7 +16,25 @@ https://cloud.r-project.org/ <br>
 python:
 https://www.python.org/downloads/windows/ <br>
 lua:
-https://github.com/rjpcomputing/luaforwindows/releases
+https://github.com/rjpcomputing/luaforwindows/releases <br>
+GO:
+https://golang.org/doc/install?download=go1.10.3.windows-amd64.msi <br>
+Elixir: https://repo.hex.pm/elixir-websetup.exe
+
+## Language Support
+<center>
+
+| Language | Version | Basic Support | Arg support | Pipeline Support |
+|:-------|:-----:|:-------:|:-------:|:-------:|
+| Python|3.7.0 | X | X | X |  
+| R |3.5.0| X | X | X | 
+| node js |8.11.3| X | X  |  |
+| lua |v5.1.5-52| X | X | |
+| Go |1.10.3| X | X |  |  
+| Elixir |1.6.6| X | |    |
+</center>
+
+
 ## Syntax 
 Every interop document has to start with a tag, something like ```#Yourname#```. What is inside of the ```#’s``` do not matter.
 ### Code Markdown & Modules
