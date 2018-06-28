@@ -36,7 +36,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){
@@ -113,6 +113,14 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste("go run runner.go", argument), intern = T)
     file.remove("runner.go")
     return(result)
+  }
+  if(script[titleRows[indexIn],] == "**Elixir"){
+    file.create("runner.exs")
+    writeLines(as.character(w), con = "runner.exs", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("elixir runner.exs", argument), intern = T)
+    file.remove("runner.exs")
+    return(result)
+    
   }
 }
 

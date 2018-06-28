@@ -61,6 +61,11 @@ func main() {
 }
 **/
 
+testElixir
+**Elixir
+IO.puts "Hello world from Elixir"
+**/
+
 ** name1 
 ** module2
 ** rtester 4
@@ -68,6 +73,7 @@ module2 **<< rtester
 
 ** luaTest 7
 ** goMod 4
+** testElixir
 
 testname
 **js
