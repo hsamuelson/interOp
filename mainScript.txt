@@ -2,8 +2,8 @@
 name1
 **R
 
-x <- c(1:10)
-print(x)
+  x <- c(1:10)
+  print(x)
 **/
 
 # This is a comment yup
@@ -17,20 +17,20 @@ print(x)
 
 moduu
 **R
-x <- c(1:10)
-y <- x^2
-print(y)
-print(x)
+  x <- c(1:10)
+  y <- x^2
+  print(y)
+  print(x)
 **/
 
 rtester
 **R
-args <- commandArgs(trailingOnly = TRUE)
-
-qwe <- function(asd){
-  return(as.integer(asd)^2)
-}
-qwe(args[1]) 
+  args <- commandArgs(trailingOnly = TRUE)
+  
+  qwe <- function(asd){
+    return(as.integer(asd)^2)
+  }
+  qwe(args[1]) 
 **/
 
 luaTest
@@ -52,18 +52,25 @@ function fact (n)
 
 goMod
 **go
-package main
-import "os"
-import "fmt"
-func main() {
-    arg := os.Args[1]
-    fmt.Println(arg)
-}
+  package main
+  import "os"
+  import "fmt"
+  func main() {
+      arg := os.Args[1]
+      fmt.Println(arg)
+  }
 **/
 
 testElixir
 **Elixir
-IO.puts "Hello world from Elixir"
+  IO.puts "Hello world from Elixir"
+**/
+
+testBat
+**bat
+echo hi
+echo hi again
+
 **/
 
 ** name1 
@@ -74,9 +81,10 @@ module2 **<< rtester
 ** luaTest 7
 ** goMod 4
 ** testElixir
+** testBat
 
 testname
 **js
-var x = 2;
-console.log(x);
+  var x = 2;
+  console.log(x);
 **/

@@ -36,7 +36,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir" || script[i,] == "**bat"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){
@@ -68,61 +68,7 @@ processBounds <- function(){
 
 allbounds <- processBounds()
 titleRows <- as.integer(allbounds[,1])
-#for(i in 1:length(titleRows)){
-processFunction <- function(indexIn, argument = ""){
-  w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
-  
-  if(script[titleRows[indexIn],] == "**R"){
-    # Write to file and run
-    file.create("runner.R")
-    writeLines(as.character(w), con = "runner.R", sep = "\n",  useBytes = FALSE) # auto indents lines
-    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R", argument), intern = T)
-    file.remove("runner.R")
-    #print(result)
-    return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
-  }
-  if(script[titleRows[indexIn],] == "**python"){
-    # Write to file and run
-    file.create("runner.py")
-    writeLines(as.character(w), con = "runner.py", sep = "\n",  useBytes = FALSE) 
-    result <- shell(paste("python runner.py", argument), intern = T)
-    file.remove("runner.py")
-    #print(result)
-    return(result)
-    
-  }
-  if(script[titleRows[indexIn],] == "**js"){
-    file.create("runner.js")
-    writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
-    result <- cat(shell(paste("node runner.js", argument), intern = T))
-    file.remove("runner.js")
-    #print(result)
-    return(result)
-    
-  }
-  if(script[titleRows[indexIn],] == "**lua"){
-    file.create("runner.lua")
-    writeLines(as.character(w), con = "runner.lua", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("lua runner.lua", argument), intern = T)
-    file.remove("runner.lua")
-    return(result)
-  }
-  if(script[titleRows[indexIn],] == "**go"){
-    file.create("runner.go")
-    writeLines(as.character(w), con = "runner.go", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("go run runner.go", argument), intern = T)
-    file.remove("runner.go")
-    return(result)
-  }
-  if(script[titleRows[indexIn],] == "**Elixir"){
-    file.create("runner.exs")
-    writeLines(as.character(w), con = "runner.exs", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("elixir runner.exs", argument), intern = T)
-    file.remove("runner.exs")
-    return(result)
-    
-  }
-}
+source("processRequest.R")
 
 testPiper <- function(firstFunc, secondFunc){
   
