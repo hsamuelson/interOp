@@ -1,12 +1,14 @@
 ![](https://raw.githubusercontent.com/hsamuelson/interOp/master/logos.png)
 # interOp
 interOp is built to be a micro-service framework built for programming languages. The goal is anyone can write in any number of different languages in the same file and it will run micro-services to processes and recombine as one cohesive program.
-## NOTE
-This is still in development and only supports python, js and R.
-## Requirements 
+## *Note
+This is still in development and only supports python, js, lua and R.
 Only supported by windows.
 
+## Requirements 
 The only requirement is the R programming language. The others are optional.<br>
+It is a requirement (with the exception of the R language) that all programming languages be in your ```%PATH%```. (Whenever installing a new language, there is always an option to add it to the path).
+
 node.js:
 https://nodejs.org/en/download/ <br>
 R:
