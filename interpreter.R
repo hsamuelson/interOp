@@ -36,7 +36,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){
@@ -79,7 +79,7 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R", argument), intern = T)
     file.remove("runner.R")
     #print(result)
-    return(result)
+    return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
   }
   if(script[titleRows[indexIn],] == "**python"){
     # Write to file and run
@@ -94,11 +94,18 @@ processFunction <- function(indexIn, argument = ""){
   if(script[titleRows[indexIn],] == "**js"){
     file.create("runner.js")
     writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("node runner.js", argument), intern = T)
+    result <- cat(shell(paste("node runner.js", argument), intern = T))
     file.remove("runner.js")
     #print(result)
     return(result)
     
+  }
+  if(script[titleRows[indexIn],] == "**lua"){
+    file.create("runner.lua")
+    writeLines(as.character(w), con = "runner.lua", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("lua runner.lua", argument), intern = T)
+    file.remove("runner.lua")
+    return(result)
   }
 }
 
@@ -148,3 +155,4 @@ master <- function(){
   }
 }
 master()
+

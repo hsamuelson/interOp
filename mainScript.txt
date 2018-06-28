@@ -33,10 +33,29 @@ qwe <- function(asd){
 qwe(args[1]) 
 **/
 
+luaTest
+**lua
+function fact (n)
+    if n == 0 then
+      return 1
+    else
+      return n * fact(n-1)
+    end
+  end
+  
+--print("enter a number:")
+  --a = io.read("*number")
+  print(fact(arg[1]))
+--If you are using Lua 
+
+**/
+
 ** name1 
 ** module2
 ** rtester 4
 module2 **<< rtester
+
+** luaTest 7
 
 testname
 **js
