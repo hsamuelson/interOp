@@ -1,11 +1,9 @@
 ![](https://raw.githubusercontent.com/hsamuelson/interOp/master/logos.png)
 # interOp
 interOp is built to be a micro-service framework built for programming languages. The goal is anyone can write in any number of different languages in the same file and it will run micro-services to processes and recombine as one cohesive program.
-## *Note
-This is still in development and only supports python, js, lua and R.
-Only supported by windows.
 
 ## Requirements 
+Windows Only
 The only requirement is the R programming language. The others are optional.<br>
 It is a requirement (with the exception of the R language) that all programming languages be in your ```%PATH%```. (Whenever installing a new language, there is always an option to add it to the path).
 
@@ -22,6 +20,7 @@ https://golang.org/doc/install?download=go1.10.3.windows-amd64.msi <br>
 Elixir: https://repo.hex.pm/elixir-websetup.exe
 
 ## Language Support
+Other Versions of the langauges work, these are just the tested versions
 <center>
 
 | Language | Version | Basic Support | Arg support | Pipeline Support |
@@ -32,6 +31,7 @@ Elixir: https://repo.hex.pm/elixir-websetup.exe
 | lua |v5.1.5-52| X | X | |
 | Go |1.10.3| X | X |  |  
 | Elixir |1.6.6| X | |    |
+| Batch |win10| X |X |    |
 </center>
 
 
