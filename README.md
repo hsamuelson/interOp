@@ -12,7 +12,9 @@ https://nodejs.org/en/download/ <br>
 R:
 https://cloud.r-project.org/ <br>
 python:
-https://www.python.org/downloads/windows/
+https://www.python.org/downloads/windows/ <br>
+lua:
+https://github.com/rjpcomputing/luaforwindows/releases
 ## Syntax 
 Every interop document has to start with a tag, something like ```#Yourname#```. What is inside of the ```#’s``` do not matter.
 ### Code Markdown & Modules
