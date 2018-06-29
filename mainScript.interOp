@@ -83,6 +83,12 @@ fn main() {
 }
 **/
 
+testRuby
+**ruby
+puts "Hello World From Ruby!"
+puts ARGV[0]*3
+
+**/
 
 ** name1 
 ** module2
@@ -94,7 +100,7 @@ module2 **<< rtester
 ** testElixir
 ** testBat
 ** testRust
-
+** testRuby 4
 
 testname
 **js

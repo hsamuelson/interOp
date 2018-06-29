@@ -33,6 +33,8 @@ Other Versions of the langauges work, these are just the tested versions
 | Elixir |1.6.6| X | |    |
 | Batch |win10| X |X |    |
 | Rust |1.27.0| X | |    |
+| Ruby | 2.4.4-2| X | X|    |
+
 </center>
 
 

@@ -76,5 +76,12 @@ processFunction <- function(indexIn, argument = ""){
     file.remove("runner.rs")
     return(result)
   }
+  if(script[titleRows[indexIn],] == "**ruby"){
+    file.create("runner.rb")
+    writeLines(as.character(w), con = "runner.rb", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("ruby runner.rb", argument), intern = T)
+    file.remove("runner.rb")
+    return(result)
+  }
 }
 
