@@ -23,7 +23,7 @@ Rust : https://win.rustup.rs/ <br>
 Other Versions of the langauges work, these are just the tested versions
 <center>
 
-| Language | Version | Basic Support | Arg support | Pipeline Support |
+| Language | Version | Basic Support | Arg support | Pipe Support |
 |:-------|:-----:|:-------:|:-------:|:-------:|
 | Python|3.7.0 | X | X | X |  
 | R |3.5.0| X | X | X | 
