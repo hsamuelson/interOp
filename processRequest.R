@@ -24,7 +24,7 @@ processFunction <- function(indexIn, argument = ""){
     file.create("runner.js")
     writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
     result <- cat(shell(paste("node runner.js", argument), intern = T))
-    file.remove("runner.js")
+    #file.remove("runner.js")
     #print(result)
     return(result)
     

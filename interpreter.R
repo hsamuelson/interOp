@@ -11,7 +11,7 @@ loadScrit <- function(){
   if(is.na(args[1])){
     fileName <- choose.files()
   } else if(args[1] == 1){
-    fileName <- "mainScript.txt"
+    fileName <- "mainScript.interOp"
   } else {
     fileName <- args[1]
   }

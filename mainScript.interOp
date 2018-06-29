@@ -90,10 +90,16 @@ puts ARGV[0]*3
 
 **/
 
+
+
+
+# Testing function calls here
+
+
 ** name1 
 ** module2
 ** rtester 4
-module2 **<< rtester
+
 
 ** luaTest 7
 ** goMod 4
@@ -102,8 +108,12 @@ module2 **<< rtester
 ** testRust
 ** testRuby 4
 
-testname
+# Testing pipe calls here
+module2 **<< rtester
+module2 **<< testRuby
+module2 **<< goMod
+module2 **<< luaTest
+
+moduleFun
 **js
-  var x = 2;
-  console.log(x);
 **/
