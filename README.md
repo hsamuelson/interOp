@@ -1,24 +1,11 @@
 ![](https://raw.githubusercontent.com/hsamuelson/interOp/master/logos.png)
 # interOp
-interOp is built to be a micro-service framework built for programming languages. The goal is anyone can write in any number of different languages in the same file and it will run micro-services to processes and recombine as one cohesive program.
+### Write in any programming language all in the same source file. <br>
+Somethings are just better done in one language over another, but all languages have their shortcomings. Why make this trade? interOp allows you to leverage the power of all programming languages, without forcing yourself to stick to one language. Sometimes data analysis is better in R, but python has better ml libraries, why choose between them and easily program in both with interOp.   
+<br>
+interOp is also great for teams. Recently the development community has experienced a fragmentation of programming languages. interOp allows multiple developers to write in their preferential languages and work together to build one cohesive program; the way development should be.    
 
-## Requirements 
-Windows Only
-The only requirement is the R programming language. The others are optional.<br>
-It is a requirement (with the exception of the R language) that all programming languages be in your ```%PATH%```. (Whenever installing a new language, there is always an option to add it to the path).
 
-node.js:
-https://nodejs.org/en/download/ <br>
-R:
-https://cloud.r-project.org/ <br>
-python:
-https://www.python.org/downloads/windows/ <br>
-lua:
-https://github.com/rjpcomputing/luaforwindows/releases <br>
-GO:
-https://golang.org/doc/install?download=go1.10.3.windows-amd64.msi <br>
-Elixir: https://repo.hex.pm/elixir-websetup.exe <br>
-Rust : https://win.rustup.rs/ <br>
 ## Language Support
 Other Versions of the langauges work, these are just the tested versions
 <center>
@@ -34,9 +21,12 @@ Other Versions of the langauges work, these are just the tested versions
 | Batch |win10| X |X |    |
 | Rust |1.27.0| X | |    |
 | Ruby | 2.4.4-2| X | X|  X  |
-
+| Perl | v5.24.3| X | X|    |
 </center>
 
+## Installation
+See this link for installation instructions: <br>
+https://github.com/hsamuelson/interOp/blob/master/installation.md
 
 ## Syntax 
 Every interop document has to start with a tag, something like ```#Yourname#```. What is inside of the ```#’s``` do not matter.
