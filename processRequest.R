@@ -27,7 +27,6 @@ processFunction <- function(indexIn, argument = ""){
     #file.remove("runner.js")
     #print(result)
     return(result)
-    
   }
   if(script[titleRows[indexIn],] == "**lua"){
     file.create("runner.lua")
@@ -49,7 +48,6 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste("elixir runner.exs", argument), intern = T)
     file.remove("runner.exs")
     return(result)
-    
   }
   if(script[titleRows[indexIn],] == "**bat"){
     file.create("runner.bat")
@@ -81,6 +79,13 @@ processFunction <- function(indexIn, argument = ""){
     writeLines(as.character(w), con = "runner.rb", sep = "\n", useBytes = FALSE)
     result <- shell(paste("ruby runner.rb", argument), intern = T)
     file.remove("runner.rb")
+    return(result)
+  }
+  if(script[titleRows[indexIn],] == "**perl"){
+    file.create("runner.pl")
+    writeLines(as.character(w), con = "runner.pl", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("perl runner.pl", argument), intern = T)
+    file.remove("runner.pl")
     return(result)
   }
 }
