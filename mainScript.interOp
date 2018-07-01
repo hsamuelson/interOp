@@ -97,9 +97,16 @@ print qq=Did you say "Hello?"\n=;
 print "$ARGV[0]\n";
 **/
 
+testDart
+**dart
+void main() {
+  print('Hello, World! from dart');
+}
+**/
 
 # Testing function calls here
 
+** testDart
 ** testPerl 3
 ** name1 
 ** module2
@@ -114,10 +121,10 @@ print "$ARGV[0]\n";
 ** testRuby 4
 
 # Testing pipe calls here
-module2 **<< rtester
-module2 **<< testRuby
-module2 **<< goMod
-module2 **<< luaTest
+rtester **<< module2
+testRuby **<< module2
+goMod **<< module2
+luaTest **<< module2
 
 moduleFun
 **js

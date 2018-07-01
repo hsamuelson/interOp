@@ -88,5 +88,12 @@ processFunction <- function(indexIn, argument = ""){
     file.remove("runner.pl")
     return(result)
   }
+  if(script[titleRows[indexIn],] == "**dart"){
+    file.create("runner.dart")
+    writeLines(as.character(w), con = "runner.dart", sep = "\n", useBytes = FALSE)
+    result <- shell(paste("dart runner.dart", argument), intern = T)
+    file.remove("runner.dart")
+    return(result)
+  }
 }
 

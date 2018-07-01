@@ -48,7 +48,7 @@ findBounds <- function(script, startingVal = 1){
   upperBound <- 0
   moduleName <- 0
   for(i in startingVal:length(script[,1])){
-    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir" || script[i,] == "**bat" || script[i,] == "**rust" || script[i,] == "**ruby" || script[i,] == "**perl"){
+    if(script[i,] == "**R" || script[i,] == "**python" || script[i,] == "**js" || script[i,] == "**lua" || script[i,]== "**go" || script[i,] == "**Elixir" || script[i,] == "**bat" || script[i,] == "**rust" || script[i,] == "**ruby" || script[i,] == "**perl" || script[i,] == "**dart"){
       lowerBound <- i
       moduleName <- script[i-1,]
       for(j in i:length(script[,1])){
@@ -121,7 +121,7 @@ master <- function(){
         if(headTag[2] == "**<<"){
           #Then we need to pass both func bounds
           #print(headTag)
-          print(Piper(headTag[1], headTag[3]))
+          print(Piper(headTag[3], headTag[1]))
         }
       }
     }
