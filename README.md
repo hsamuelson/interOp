@@ -24,7 +24,8 @@ Other Versions of the langauges work, these are just the tested versions
 | Perl | v5.24.3| X | X|    |
 | Dart | 1.24.3| X | |    |
 | Java | jdk1.8.0_171*| X |  |    |
-*For now it is important to have this exact jdk
+
+*If you choose to use java it is important to use this exact jdk
 </center>
 
 ## Installation
