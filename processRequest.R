@@ -9,56 +9,57 @@ processFunction <- function(indexIn, argument = ""){
   
   if(script[titleRows[indexIn],] == "**R"){
     # Write to file and run
-    file.create("runner.R")
-    writeLines(as.character(w), con = "runner.R", sep = "\n",  useBytes = FALSE) # auto indents lines
-    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), "runner.R", argument), intern = T)
-    file.remove("runner.R")
+    fileName <- uniqueFileName(".R")
+    
+    writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
+    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+    file.remove(fileName)
     #print(result)
     return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
   }
   if(script[titleRows[indexIn],] == "**python"){
     # Write to file and run
-    file.create("runner.py")
-    writeLines(as.character(w), con = "runner.py", sep = "\n",  useBytes = FALSE) 
-    result <- shell(paste("python runner.py", argument), intern = T)
-    file.remove("runner.py")
+    fileName <- uniqueFileName(".py")
+    writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) 
+    result <- shell(paste("python", fileName, argument), intern = T)
+    file.remove(fileName)
     #print(result)
     return(result)
     
   }
   if(script[titleRows[indexIn],] == "**js"){
-    file.create("runner.js")
-    writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
-    result <- cat(shell(paste("node runner.js", argument), intern = T))
-    file.remove("runner.js")
+    fileName <- uniqueFileName(".js")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- cat(shell(paste("node", fileName, argument), intern = T))
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**lua"){
-    file.create("runner.lua")
-    writeLines(as.character(w), con = "runner.lua", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("lua runner.lua", argument), intern = T)
-    file.remove("runner.lua")
+    fileName <- uniqueFileName(".lua")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("lua", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**go"){
-    file.create("runner.go")
-    writeLines(as.character(w), con = "runner.go", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("go run runner.go", argument), intern = T)
-    file.remove("runner.go")
+    fileName <- uniqueFileName(".go")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("go run", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**Elixir"){
-    file.create("runner.exs")
-    writeLines(as.character(w), con = "runner.exs", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("elixir runner.exs", argument), intern = T)
-    file.remove("runner.exs")
+    fileName <- uniqueFileName(".exs")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("elixir", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**bat"){
-    file.create("runner.bat")
-    writeLines(as.character(w), con = "runner.bat", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("runner.bat", argument), intern = T)
-    file.remove("runner.bat")
+    fileName <- uniqueFileName(".bat")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste(fileName, argument), intern = T)
+    file.remove(fileName)
     try(
       for(i in 1:length(result)){  #This is to remove the spacing & console prompt output
         if(result[i] == ""){
@@ -69,44 +70,47 @@ processFunction <- function(indexIn, argument = ""){
     return(result)
   }
   if(script[titleRows[indexIn],] == "**rust"){
-    file.create("runner.rs")
-    writeLines(as.character(w), con = "runner.rs", sep = "\n", useBytes = FALSE)
-    shell("rustc runner.rs", intern = T)
-    result <- shell(paste("runner.exe", argument), intern = T)
+    fileName <- uniqueFileName(".rs")
+    fileNameWithoutExtension <- uniqueFileName()
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    shell(paste("rustc", fileName), intern = T)
+    result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
     
-    file.remove("runner.exe") # .rs files compile into .exe and .pdb which tha can be run
-    file.remove("runner.pdb")
-    file.remove("runner.rs")
+    file.remove(paste0(fileNameWithoutExtension,".exe", collapse = "")) # .rs files compile into .exe and .pdb which tha can be run
+    file.remove(paste0(fileNameWithoutExtension,".pdb", collapse = ""))
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**ruby"){
-    file.create("runner.rb")
-    writeLines(as.character(w), con = "runner.rb", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("ruby runner.rb", argument), intern = T)
-    file.remove("runner.rb")
+    fileName <- uniqueFileName(".rb")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("ruby", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**perl"){
-    file.create("runner.pl")
-    writeLines(as.character(w), con = "runner.pl", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("perl runner.pl", argument), intern = T)
-    file.remove("runner.pl")
+    fileName <- uniqueFileName(".pl")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("perl", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**dart"){
-    file.create("runner.dart")
-    writeLines(as.character(w), con = "runner.dart", sep = "\n", useBytes = FALSE)
-    result <- shell(paste("dart runner.dart", argument), intern = T)
-    file.remove("runner.dart")
+    fileName <- uniqueFileName(".dart")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    result <- shell(paste("dart", fileName, argument), intern = T)
+    file.remove(fileName)
     return(result)
   }
   if(script[titleRows[indexIn],] == "**java"){
-    writeLines(as.character(w), con = uniqueFileName(".java"), sep = "\n", useBytes = FALSE)
-    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', uniqueFileName(".java"))) #needs to compile .class
-    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', uniqueFileName(), argument), intern = T) #this runs the class file
+    fileNameExtension <- uniqueFileName(".java")
+    fileNameReg <- uniqueFileName()
+    writeLines(as.character(w), con = fileNameExtension, sep = "\n", useBytes = FALSE)
+    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
+    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
     
-    file.remove(uniqueFileName(".java"))
-    file.remove(paste0(uniqueFileName(), ".class",collapse = ""))
+    file.remove(fileNameExtension)
+    file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
 }
