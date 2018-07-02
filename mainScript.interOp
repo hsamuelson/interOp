@@ -104,8 +104,22 @@ void main() {
 }
 **/
 
+HelloWorld
+**java
+public class HelloWorld {
+
+    public static void main(String[] args) {
+        // Prints "Hello, World" to the terminal window.
+        System.out.println("Hello, World from java");
+    }
+
+}
+**/
+
+
 # Testing function calls here
 
+** HelloWorld
 ** testDart
 ** testPerl 3
 ** name1 

@@ -95,5 +95,16 @@ processFunction <- function(indexIn, argument = ""){
     file.remove("runner.dart")
     return(result)
   }
+  if(script[titleRows[indexIn],] == "**java"){
+    fileName1 <- script[titleRows[indexIn]-1,]
+    fileName <- paste0(fileName1, ".java", collapse = "")
+    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileName)) #needs to compile .class
+    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileName1, argument), intern = T) #this runs the class file
+    
+    file.remove(fileName)
+    file.remove(paste0(fileName1, ".class",collapse = ""))
+    return(result)
+  }
 }
 
