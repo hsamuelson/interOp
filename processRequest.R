@@ -1,5 +1,11 @@
+
 processFunction <- function(indexIn, argument = ""){
   w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
+  uniqueFileName <- function(extension = 0){
+    fileName <- script[titleRows[indexIn]-1,]
+    if(extension == 0) {return(fileName)}
+    else {return(paste0(fileName, extension, collapse = ""))}
+  }
   
   if(script[titleRows[indexIn],] == "**R"){
     # Write to file and run
@@ -24,8 +30,7 @@ processFunction <- function(indexIn, argument = ""){
     file.create("runner.js")
     writeLines(as.character(w), con = "runner.js", sep = "\n", useBytes = FALSE)
     result <- cat(shell(paste("node runner.js", argument), intern = T))
-    #file.remove("runner.js")
-    #print(result)
+    file.remove("runner.js")
     return(result)
   }
   if(script[titleRows[indexIn],] == "**lua"){
@@ -96,14 +101,12 @@ processFunction <- function(indexIn, argument = ""){
     return(result)
   }
   if(script[titleRows[indexIn],] == "**java"){
-    fileName1 <- script[titleRows[indexIn]-1,]
-    fileName <- paste0(fileName1, ".java", collapse = "")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
-    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileName)) #needs to compile .class
-    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileName1, argument), intern = T) #this runs the class file
+    writeLines(as.character(w), con = uniqueFileName(".java"), sep = "\n", useBytes = FALSE)
+    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', uniqueFileName(".java"))) #needs to compile .class
+    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', uniqueFileName(), argument), intern = T) #this runs the class file
     
-    file.remove(fileName)
-    file.remove(paste0(fileName1, ".class",collapse = ""))
+    file.remove(uniqueFileName(".java"))
+    file.remove(paste0(uniqueFileName(), ".class",collapse = ""))
     return(result)
   }
 }

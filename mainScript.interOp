@@ -116,9 +116,14 @@ public class HelloWorld {
 }
 **/
 
+funJS
+**js
+console.log("hi");
+**/
 
 # Testing function calls here
 
+** funJS
 ** HelloWorld
 ** testDart
 ** testPerl 3
