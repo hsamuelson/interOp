@@ -22,6 +22,9 @@ Other Versions of the langauges work, these are just the tested versions
 | Rust |1.27.0| X | |    |
 | Ruby | 2.4.4-2| X | X|  X  |
 | Perl | v5.24.3| X | X|    |
+| Dart | 1.24.3| X | |    |
+| Java | jdk1.8.0_171*| X |  |    |
+*For now it is important to have this exact jdk
 </center>
 
 ## Installation
