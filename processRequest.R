@@ -30,7 +30,7 @@ processFunction <- function(indexIn, argument = ""){
   if(script[titleRows[indexIn],] == "**js"){
     fileName <- uniqueFileName(".js")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- cat(shell(paste("node", fileName, argument), intern = T))
+    result <- shell(paste("node", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
