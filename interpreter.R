@@ -121,7 +121,7 @@ master <- function(){
     }
   }
   #parallelLoop
-  foreach(i=length(funcList)) %do% {
+  tt <- foreach(i=1:length(funcList)) %do% { # defining this to tt to avoid unwanted console output
     
     headTag <- strsplit(funcList[i], " ")[[1]]
     if(headTag[1] == "**"){ #function decloration syntax
@@ -147,10 +147,10 @@ master <- function(){
     }
   }
 }
-start_time <- Sys.time()
+#start_time <- Sys.time()
 master()
-end_time <- Sys.time()
-end_time - start_time
+#end_time <- Sys.time()
+#end_time - start_time
 
 
 
