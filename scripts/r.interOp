@@ -1,0 +1,8 @@
+#PARSER#
+rtest
+**R
+
+  x <- c(1:10)
+  print(x)
+**/
+** rtest 

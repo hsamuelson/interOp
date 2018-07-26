@@ -1,0 +1,7 @@
+testRuby
+**ruby
+puts "Hello World From Ruby!"
+puts ARGV[0]*3
+
+**/
+** testRuby 4

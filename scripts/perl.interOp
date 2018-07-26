@@ -1,0 +1,7 @@
+testPerl
+**perl
+print "Hello, world!\n";
+print qq=Did you say "Hello?"\n=;
+print "$ARGV[0]\n";
+**/
+** testPerl 3

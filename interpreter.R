@@ -18,7 +18,8 @@ loadScrit <- function(){
   }
   return(fileName)
 }
-
+if (!require("parallel")) install.packages("parallel") # The new parallel version requires library parallels
+library(parallel)
 script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
 # From loading from a file have to conver to table matrix
 script <- as.matrix(script)
