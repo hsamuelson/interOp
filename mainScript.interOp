@@ -145,7 +145,3 @@ rtester **<< module2
 testRuby **<< module2
 goMod **<< module2
 luaTest **<< module2
-
-moduleFun
-**js
-**/

@@ -1,4 +1,5 @@
-C:/PROGRA~1/R/R-35~1.0/bin/Rscript.exe interpreter.R "mainScript.txt"
+set arg1=%1
+%__CD__%R-3.4.1\bin\Rscript.exe interpreter.R %arg1%
 pause
 cls
 exit

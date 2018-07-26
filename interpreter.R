@@ -18,10 +18,14 @@ loadScrit <- function(){
   }
   return(fileName)
 }
-if (!require("parallel")) install.packages("parallel") # The new parallel version requires library parallels
-library(parallel)
+if (!require("foreach")) install.packages("foreach", repos='http://cran.us.r-project.org') # The new parallel version requires library parallels
+library(foreach)
+
 script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+script <- suppressWarnings(readLines("scripts/r.interOp")) #This triggerss a warning but not an concern
+
 # From loading from a file have to conver to table matrix
+#script <- suppressWarnings(readLines(loadScrit()))
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
@@ -69,6 +73,9 @@ processBounds <- function(){
   for( i in 1:length(script[,1])){
     bounds <- rbind(bounds, findBounds(script, startingVal = counter))
     counter <- findBounds(script, startingVal = counter)[2]
+    if(is.null(counter)) {
+      break()
+      }
     if(counter == length(script[,1])){
       break
     }
@@ -80,7 +87,16 @@ processBounds <- function(){
 #Send Processing calls 
 
 allbounds <- processBounds()
-titleRows <- as.integer(allbounds[,1])
+# If there is only one function assigning a row wont always work
+# so we need to check first how many functions their are.
+if(length(allbounds) != 3) {
+  titleRows <- as.integer(allbounds[,1])
+  
+} else if(length(allbounds) == 3 ) {
+  titleRows <- as.integer(allbounds[,1])
+} else {
+  print("faital script error")
+}
 source("processRequest.R")
 
 Piper <- function(firstFunc, secondFunc){
@@ -148,10 +164,10 @@ master <- function(){
     }
   }
 }
-#start_time <- Sys.time()
+start_time <- Sys.time()
 master()
-#end_time <- Sys.time()
-#end_time - start_time
+end_time <- Sys.time()
+end_time - start_time
 
 
 
