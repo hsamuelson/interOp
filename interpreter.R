@@ -91,41 +91,67 @@ Piper <- function(firstFunc, secondFunc){
   
 }
 master <- function(){
+  #
+  # This is the parallel version 7/26/18
+  #
+  # Instead of normally reading through the script while processing,
+  # this loop reads through the script and compiles a new script which 
+  # is comprized of only function calls and interOp operations. This list
+  # Is then run in parallel.
+  counter <- 1
+  funcList <- numeric() # This will be the list of preprocessed functions passed to the foreach()
   for(i in 1:length(script)){
     
     # Ignore Spaces
     if(length(strsplit(script[i], " ")[[1]]) != 0){ #If its zero then its def a space
       
       headTag <- strsplit(script[i], " ")[[1]]
-      
-      #Process function call
-      #
-      # THis the main function runner #####
-      # 
-      # ############
+
       if(headTag[1] == "**"){ #function decloration syntax
-        
-        #Run function
-        funcName <- headTag[2]
-        allBoundsIndex <- match(funcName, allbounds[,3])
-        if(length(headTag) == 3){
-          output <- processFunction(allBoundsIndex, argument = headTag[3])
-        } else {
-          output <- processFunction(allBoundsIndex)
-        }
-        print(output)
-        
+        funcList[counter] <- script[i]
+        counter = counter + 1
       }
-      ################
+
       if(length(headTag) == 3){
         if(headTag[2] == "**<<"){
-          #Then we need to pass both func bounds
-          #print(headTag)
-          print(Piper(headTag[3], headTag[1]))
+          funcList[counter] <- script[i]
+          counter = counter + 1
         }
       }
     }
   }
+  #parallelLoop
+  tt <- foreach(i=1:length(funcList)) %do% { # defining this to tt to avoid unwanted console output
+    
+    headTag <- strsplit(funcList[i], " ")[[1]]
+    if(headTag[1] == "**"){ #function decloration syntax
+      
+      #Run function
+      funcName <- headTag[2]
+      allBoundsIndex <- match(funcName, allbounds[,3])
+      if(length(headTag) == 3){
+        output <- processFunction(allBoundsIndex, argument = headTag[3])
+      } else {
+        output <- processFunction(allBoundsIndex)
+      }
+      print(output)
+      
+    }
+    ################
+    if(length(headTag) == 3){
+      if(headTag[2] == "**<<"){
+        #Then we need to pass both func bounds
+        #print(headTag)
+        print(Piper(headTag[3], headTag[1]))
+      }
+    }
+  }
 }
+#start_time <- Sys.time()
 master()
+#end_time <- Sys.time()
+#end_time - start_time
+
+
+
 
