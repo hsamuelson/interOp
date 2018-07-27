@@ -51,6 +51,13 @@ To run a module simply type ```** moduleName```. It is important to note, the mo
   ### Pipe Operators 
   The pipe operator is ```**<<```. To input the output of one module into another is straight forward. To input ```mod1``` into ```mod2``` simply write: ```mod1 **<< mod2```. So far this is not supported with all languages. 
 ## Compiling InterOp
-For now, simply run the batfile: ```interOp.bat``` from cmd. The interpreter only reads from one file ```mainscript.txt```.
+For now from commandline/powershell run the ```interOp.bat``` file with an ```.interOp``` file as its arg. This will look like this:
+```
+interOp.bat ".\scripts\python.interOp"
+```
+This powershell command will run the python file assuming you have python installed. You can find examples for all supported languages, inside the ```/scripts``` folder. If you want an example of what it looks like to run muiltiple language in one file see ```mainScript.interOp``` but as a warning you need all supported languages installed to properlly run. <br>
+There are a few valid command line args for ```interOp.bat```. Passing it no arg means it will allow you to select a file via a GUI. This would look like ```interOp.bat``` in the console. 
+Inputing the number ```1``` as an arg will default the script to reading ```mainScript.interOp```.
+
 #### From R:
 You can also run the ```interpreter.R``` file to process the code. If you want to run it in a live R enviorment, simply load ```interpreter.R``` and then run ```master()``` to re-run code.

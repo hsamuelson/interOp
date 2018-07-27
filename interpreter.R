@@ -7,7 +7,7 @@
 # TO read console input for ths program
 rm(list=ls()) #This clears all system vars to avoid errors
 args <- commandArgs(trailingOnly = TRUE)
-loadScrit <- function(){
+loadScript <- function(){
   fileName <- ""
   if(is.na(args[1])){
     fileName <- choose.files()
@@ -21,11 +21,15 @@ loadScrit <- function(){
 if (!require("foreach")) install.packages("foreach", repos='http://cran.us.r-project.org') # The new parallel version requires library parallels
 library(foreach)
 
-script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("scripts/r.interOp")) #This triggerss a warning but not an concern
+
 
 # From loading from a file have to conver to table matrix
-#script <- suppressWarnings(readLines(loadScrit()))
+script <- suppressWarnings(readLines(loadScript()))
+
+## UNCOMMENT THESE FOR DEV
+
+#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+#script <- suppressWarnings(readLines("scripts/r.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
@@ -93,7 +97,8 @@ if(length(allbounds) != 3) {
   titleRows <- as.integer(allbounds[,1])
   
 } else if(length(allbounds) == 3 ) {
-  titleRows <- as.integer(allbounds[,1])
+  allbounds <- rbind(allbounds)
+  titleRows <- as.integer(allbounds[1])
 } else {
   print("faital script error")
 }
