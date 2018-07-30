@@ -2,12 +2,13 @@
 processFunction <- function(indexIn, argument = ""){
   w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
   uniqueFileName <- function(extension = 0){
-    fileName <- script[titleRows[indexIn]-1,]
+    fileName <- strsplit(script[titleRows[indexIn],], " ")[[1]][2]
+    #print(fileName)
     if(extension == 0) {return(fileName)}
     else {return(paste0(fileName, extension, collapse = ""))}
   }
-  
-  if(script[titleRows[indexIn],] == "**R"){
+  mainTag <- strsplit(script[titleRows[indexIn],], " ")[[1]][1]
+  if(mainTag == "**R"){
     # Write to file and run
     fileName <- uniqueFileName(".R")
     
@@ -17,7 +18,7 @@ processFunction <- function(indexIn, argument = ""){
     #print(result)
     return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
   }
-  if(script[titleRows[indexIn],] == "**python"){
+  if(mainTag == "**python"){
     # Write to file and run
     fileName <- uniqueFileName(".py")
     writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) 
@@ -27,35 +28,35 @@ processFunction <- function(indexIn, argument = ""){
     return(result)
     
   }
-  if(script[titleRows[indexIn],] == "**js"){
+  if(mainTag == "**js"){
     fileName <- uniqueFileName(".js")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("node", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**lua"){
+  if(mainTag == "**lua"){
     fileName <- uniqueFileName(".lua")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("lua", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**go"){
+  if(mainTag == "**go"){
     fileName <- uniqueFileName(".go")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("go run", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**Elixir"){
+  if(mainTag == "**Elixir"){
     fileName <- uniqueFileName(".exs")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("elixir", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**bat"){
+  if(mainTag == "**bat"){
     fileName <- uniqueFileName(".bat")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste(fileName, argument), intern = T)
@@ -69,7 +70,7 @@ processFunction <- function(indexIn, argument = ""){
       silent=TRUE)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**rust"){
+  if(mainTag == "**rust"){
     fileName <- uniqueFileName(".rs")
     fileNameWithoutExtension <- uniqueFileName()
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
@@ -81,28 +82,28 @@ processFunction <- function(indexIn, argument = ""){
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**ruby"){
+  if(mainTag == "**ruby"){
     fileName <- uniqueFileName(".rb")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("ruby", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**perl"){
+  if(mainTag == "**perl"){
     fileName <- uniqueFileName(".pl")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("perl", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**dart"){
+  if(mainTag == "**dart"){
     fileName <- uniqueFileName(".dart")
     writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("dart", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
-  if(script[titleRows[indexIn],] == "**java"){
+  if(mainTag == "**java"){
     fileNameExtension <- uniqueFileName(".java")
     fileNameReg <- uniqueFileName()
     writeLines(as.character(w), con = fileNameExtension, sep = "\n", useBytes = FALSE)

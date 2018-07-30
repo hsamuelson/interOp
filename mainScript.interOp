@@ -1,6 +1,6 @@
 #PARSER#
-name1
-**R
+
+**R name1 simple
 
   x <- c(1:10)
   print(x)
@@ -8,23 +8,23 @@ name1
 
 # This is a comment yup
 
-module2
-**python
+
+**python module2 simple
 
 x = 3
 print(x)
 **/
 
-moduu
-**R
+
+**R moduu simple
   x <- c(1:10)
   y <- x^2
   print(y)
   print(x)
 **/
 
-rtester
-**R
+
+**R rtester simple
   args <- commandArgs(trailingOnly = TRUE)
   
   qwe <- function(asd){
@@ -33,8 +33,8 @@ rtester
   qwe(args[1]) 
 **/
 
-luaTest
-**lua
+
+**lua luaTest simple
 function fact (n)
     if n == 0 then
       return 1
@@ -50,31 +50,33 @@ function fact (n)
 
 **/
 
-goMod
-**go
-  package main
-  import "os"
-  import "fmt"
-  func main() {
-      arg := os.Args[1]
-      fmt.Println(arg)
-  }
+
+**go goMod simple
+package main
+import "os"
+import "fmt"
+func main() {
+  arg := os.Args[1]
+  fmt.Println(arg)
+}
 **/
 
-testElixir
-**Elixir
+
+**Elixir testElixir simple
+
   IO.puts "Hello world from Elixir"
+  
 **/
 
-testBat
-**bat
+
+**bat testBat simple
 echo hi
 echo hi again
 
 **/
 
-testRust
-**rust
+
+**rust testRust simple
 fn main() {
     // The statements here will be executed when the compiled binary is called
 
@@ -83,30 +85,30 @@ fn main() {
 }
 **/
 
-testRuby
-**ruby
+
+**ruby testRuby simple
 puts "Hello World From Ruby!"
 puts ARGV[0]*3
 
 **/
 
-testPerl
-**perl
+
+**perl testPerl simple
 print "Hello, world!\n";
 print qq=Did you say "Hello?"\n=;
 print "$ARGV[0]\n";
 **/
 
-testDart
-**dart
+
+**dart testDart simple
 void main() {
   print('Hello, World! from dart');
 }
 **/
 
-HelloWorld
-**java
-public class HelloWorld {
+
+**java Helloworld simple
+public class Helloworld {
 
     public static void main(String[] args) {
         // Prints "Hello, World" to the terminal window.
@@ -116,8 +118,8 @@ public class HelloWorld {
 }
 **/
 
-funJS
-**js
+
+**js funJS simple
 var x = 2;
 console.log(x);
 **/
@@ -125,7 +127,7 @@ console.log(x);
 # Testing function calls here
 
 ** funJS
-** HelloWorld
+** Helloworld
 ** testDart
 ** testPerl 3
 ** name1 
