@@ -62,8 +62,10 @@ func main() {
 **/
 
 
-**Elixir textElixir simple
+**Elixir testElixir simple
+
   IO.puts "Hello world from Elixir"
+  
 **/
 
 
