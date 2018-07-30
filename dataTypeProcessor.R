@@ -14,24 +14,22 @@ dataType <- function(language, varType, fileName, writtenScript){
       # Do nothing this is already handled.
     } else if(varType == "matrix"){
       
+    } else if(varType == "image"){
+      
     } else {
       return("NOT A VALID DATA TYPE")
     }
   }
-  if(language == "**R"){
+  if(language == "**js"){
     if(varType == "simple"){
+      # Do nothing this is already handled.
+    } else if(varType == "matrix"){
       
-    }
-    if(varType == "matrix"){
+    } else if(varType == "image"){
       
+    } else {
+      return("NOT A VALID DATA TYPE")
     }
   }
-  if(language == "**R"){
-    if(varType == "simple"){
-      
-    }
-    if(varType == "matrix"){
-      
-    }
-  }
+  
 }
