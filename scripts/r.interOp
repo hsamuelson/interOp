@@ -1,6 +1,6 @@
 #PARSER#
-rtest
-**R
+
+**R rtest simple
 
   x <- c(1:10)
   print(x)

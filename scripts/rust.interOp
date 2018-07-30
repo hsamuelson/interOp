@@ -1,5 +1,5 @@
-testRust
-**rust
+
+**rust testRust simple
 fn main() {
     // The statements here will be executed when the compiled binary is called
 
