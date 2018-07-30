@@ -83,7 +83,7 @@ processBounds <- function(){
     bounds <- rbind(bounds, findBounds(script, startingVal = counter))
     counter <- findBounds(script, startingVal = counter)[2]
     if(is.null(counter)) {
-      print(i)
+      #print(i)
       break()
       }
     if(counter == length(script[,1])){
@@ -140,7 +140,7 @@ master <- function(){
         counter = counter + 1
       }
 
-      if(length(headTag) == 3){
+      if(!is.na(headTag[2])){
         if(headTag[2] == "**<<"){
           funcList[counter] <- script[i]
           counter = counter + 1
@@ -170,7 +170,7 @@ master <- function(){
       
     }
     ################
-    if(length(headTag) == 3){
+    if(!is.na(headTag[2])){
       if(headTag[2] == "**<<"){
         #Then we need to pass both func bounds
         #print(headTag)
