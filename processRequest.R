@@ -2,7 +2,8 @@
 processFunction <- function(indexIn, argument = ""){
   w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
   uniqueFileName <- function(extension = 0){
-    fileName <- script[titleRows[indexIn]-1,]
+    fileName <- strsplit(script[titleRows[indexIn],], " ")[[1]][2]
+    #print(fileName)
     if(extension == 0) {return(fileName)}
     else {return(paste0(fileName, extension, collapse = ""))}
   }

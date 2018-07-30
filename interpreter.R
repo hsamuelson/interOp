@@ -28,8 +28,8 @@ library(foreach)
 
 ## UNCOMMENT THESE FOR DEV
 
-#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
+script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+#script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
@@ -153,7 +153,7 @@ master <- function(){
     return("No Function Calls. What are you doing?")
   }
   #parallelLoop
-  tt <- foreach(i=1:length(funcList)) %do% { # defining this to tt to avoid unwanted console output
+  tt <- suppressWarnings(foreach(i=1:length(funcList)) %do% { # defining this to tt to avoid unwanted console output
     
     headTag <- strsplit(funcList[i], " ")[[1]]
     if(headTag[1] == "**"){ #function decloration syntax
@@ -162,8 +162,12 @@ master <- function(){
       funcName <- headTag[2]
       allBoundsIndex <- match(funcName, allbounds[,3])
       if(length(headTag) == 3){
+        print("Head Tag is 3")
+        print(headTag[3])
         output <- processFunction(allBoundsIndex, argument = headTag[3])
       } else {
+        print("not 3")
+        print(headTag)
         output <- processFunction(allBoundsIndex)
       }
       print(output)
@@ -177,7 +181,7 @@ master <- function(){
         print(Piper(headTag[3], headTag[1]))
       }
     }
-  }
+  })
 }
 start_time <- Sys.time()
 master()
