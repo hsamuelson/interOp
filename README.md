@@ -33,17 +33,17 @@ See this link for installation instructions: <br>
 https://github.com/hsamuelson/interOp/blob/master/installation.md
 
 ## Syntax 
-Every interop document has to start with a tag, something like ```#Yourname#```. What is inside of the ```#’s``` do not matter.
+
 ### Code Markdown & Modules
 To create a new code markdown in a given language, type ```**``` then the language name. For example if I was writing in ```js``` I would write ```**js```. To signify the end of a code module use ```**/```. Each module needs a name (written above) in order to run and be called, to signify the name of a module, write its name above the language declaration. For example:
 ```
-moduleFun 
-**js
+ 
+**js jsModule simple
 Var x = 2;
 Console.log(x);
 **/
 ```
-One can create multiple modules in any language in any order.
+One can create multiple modules in any language in any order. "Simple" is the output data type. For now always write ```simple``` at the end of a code module decloration. 
 ## Running Modules
 To run a module simply type ```** moduleName```. It is important to note, the module will not run on initiation, and will not run if there is a missing space between ```**``` and the module name.
   ### Module Arguments
