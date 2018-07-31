@@ -28,8 +28,8 @@ library(foreach)
 
 ## UNCOMMENT THESE FOR DEV
 
-#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
+script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+#script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
