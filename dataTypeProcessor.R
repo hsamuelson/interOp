@@ -17,6 +17,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       if(varType == "simple"){
         # Do nothing this is already handled.
       } else if(varType == "matrix"){
+        #print("dataType Matrix achived")
         # Call standard R code to export to matrix
         
         # The file that will be run will be comprized of 3 chunks
@@ -34,11 +35,13 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         
         ### These will be the two default vars passed to the default scripts ###
         midSlice <- paste("m_out <-", varName)
-        rbind(midSlice,paste("m_out_name <-", fileName))
+        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
+        #cat("midslice", midSlice)
         ### ----- ###
         
         endSplice <- suppressWarnings(readLines("dataTypes/matrix/r.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
+        #cat("end slice", endSplice)
         return(as.matrix(rbind(midSlice, endSplice)))
         
       } else if(varType == "image"){

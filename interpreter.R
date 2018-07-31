@@ -29,7 +29,7 @@ library(foreach)
 ## UNCOMMENT THESE FOR DEV
 
 #script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("scripts/elixir.interOp")) #This triggerss a warning but not an concern
+script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
@@ -164,12 +164,8 @@ master <- function(){
       funcName <- headTag[2]
       allBoundsIndex <- match(funcName, allbounds[,3])
       if(length(headTag) == 3){
-        #print("Head Tag is 3")
-        #print(headTag[3])
         output <- processFunction(allBoundsIndex, argument = headTag[3])
       } else {
-        #print("not 3")
-        #print(headTag)
         output <- processFunction(allBoundsIndex)
       }
       print(output)

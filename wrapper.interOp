@@ -3,6 +3,7 @@
 **R testName matrix universal1
 x <- c(1:10)
 print(x)
+universal1 <- x
 
 **/
 
