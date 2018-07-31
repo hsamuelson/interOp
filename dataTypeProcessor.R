@@ -7,29 +7,58 @@
 #This should be passed headTag[1] & headTag[2] from processRequest()
 
 # Language is the language
-# Var Type is the defined 
-dataType <- function(language, varType, fileName, writtenScript){
-  if(language == "**R"){
-    if(varType == "simple"){
-      # Do nothing this is already handled.
-    } else if(varType == "matrix"){
-      
-    } else if(varType == "image"){
-      
-    } else {
-      return("NOT A VALID DATA TYPE")
+# Var Type is the defined var type say matrix
+# fileName will be the file to write the lines to
+# varName is the universal var name
+
+dataType <- function(language, varType, fileName, varName = 0 ){
+  if(!varName == 0 ){ # If there is no varName just return it must mean the simple tag is being used.
+    if(language == "**R"){
+      if(varType == "simple"){
+        # Do nothing this is already handled.
+      } else if(varType == "matrix"){
+        # Call standard R code to export to matrix
+        
+        # The file that will be run will be comprized of 3 chunks
+        
+        #1st chunk
+          # This will be generated with processFunction(). This is all that will be run if
+          # the "simple" data type is applied.
+        
+        #2nd chunk
+          # This will be the default sticher between the 1st and 3rd chunk and will 
+          # provide var transfer.
+        
+        #3rd chunk
+          # This will be the generic code at the end that will export givin the language to a .csv
+        
+        ### These will be the two default vars passed to the default scripts ###
+        midSlice <- paste("m_out <-", varName)
+        rbind(midSlice,paste("m_out_name <-", fileName))
+        ### ----- ###
+        
+        endSplice <- suppressWarnings(readLines("dataTypes/matrix/r.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
+        return(as.matrix(rbind(midSlice, endSplice)))
+        
+      } else if(varType == "image"){
+        
+      } else {
+        return("NOT A VALID DATA TYPE")
+      }
+    }
+    if(language == "**js"){
+      if(varType == "simple"){
+        # Do nothing this is already handled.
+      } else if(varType == "matrix"){
+        
+      } else if(varType == "image"){
+        
+      } else {
+        return("NOT A VALID DATA TYPE")
+      }
     }
   }
-  if(language == "**js"){
-    if(varType == "simple"){
-      # Do nothing this is already handled.
-    } else if(varType == "matrix"){
-      
-    } else if(varType == "image"){
-      
-    } else {
-      return("NOT A VALID DATA TYPE")
-    }
-  }
-  
 }
+
+# Test file
