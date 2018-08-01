@@ -26,6 +26,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         #1st chunk
           # This will be generated with processFunction(). This is all that will be run if
           # the "simple" data type is applied.
+          # The first chunk will be spliced on within processFunction()
         
         #2nd chunk
           # This will be the default sticher between the 1st and 3rd chunk and will 
@@ -48,7 +49,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       } else if(varType == "image"){
         
       } else {
-        return("NOT A VALID DATA TYPE")
+        return("NOT A VALID DATA TYPE") ## THIS needs to actually be handled later with process function.
       }
     }
     if(language == "**js"){
