@@ -28,8 +28,8 @@ library(foreach)
 
 ## UNCOMMENT THESE FOR DEV
 
-#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("scripts/elixir.interOp")) #This triggerss a warning but not an concern
+script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+#script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
 # Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
@@ -75,7 +75,7 @@ findBounds <- function(script, startingVal = 1){
   }
 }
 
-
+# This function processes all function bounds and is used only to generate "allbounds" table
 processBounds <- function(){
   counter <- 1
   bounds <- c("lower", "upper", "moduleName", "outputType")
@@ -97,6 +97,7 @@ processBounds <- function(){
 #Send Processing calls 
 
 allbounds <- processBounds()
+
 # If there is only one function assigning a row wont always work
 # so we need to check first how many functions their are.
 if(length(allbounds) != 4) {
@@ -149,6 +150,7 @@ master <- function(){
     }
   }
   # Make sure there are actual function calls:
+  # If the funcList doesnt exsist no one actually called anything
   if(length(funcList) == 0) {
     return("No Function Calls. What are you doing?")
   }
@@ -162,12 +164,8 @@ master <- function(){
       funcName <- headTag[2]
       allBoundsIndex <- match(funcName, allbounds[,3])
       if(length(headTag) == 3){
-        #print("Head Tag is 3")
-        #print(headTag[3])
         output <- processFunction(allBoundsIndex, argument = headTag[3])
       } else {
-        #print("not 3")
-        #print(headTag)
         output <- processFunction(allBoundsIndex)
       }
       print(output)

@@ -1,0 +1,25 @@
+get the output var
+
+determine the datatype within the language
+select how to convert that data type to a .csv
+
+
+===== data type groupings ======
+simple
+-------------
+int 
+integer
+string
+double 
+
+Matrix
+---------
+table
+matrix
+data.frame
+array
+
+image
+-----
+images
+plots 

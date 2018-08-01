@@ -1,19 +1,43 @@
-
+source("dataTypeProcessor.R")
 processFunction <- function(indexIn, argument = ""){
+  
+  # This is the text from whatever the imported function is:
   w <- script[(as.integer(allbounds[indexIn,1])+1):(as.integer(allbounds[indexIn,2])- 1),]
+  
+  # This function creates unique file names to allow functions to 
+  # run muiltiple functions in the same language in parallel
   uniqueFileName <- function(extension = 0){
     fileName <- strsplit(script[titleRows[indexIn],], " ")[[1]][2]
     #print(fileName)
     if(extension == 0) {return(fileName)}
     else {return(paste0(fileName, extension, collapse = ""))}
   }
+  
+  # Main Tag will be the langauge identiy of the given function to
+  # determine what runner we will need to call
   mainTag <- strsplit(script[titleRows[indexIn],], " ")[[1]][1]
+  
+  
   if(mainTag == "**R"){
     # Write to file and run
     fileName <- uniqueFileName(".R")
     
-    writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
+    # Call the datatype() to add on script to create an output
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    # First make sure a name actually exsists
+    # If not just write the regular file
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**R", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    
+    writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+    # Call dataType Processorn to test data types
+    
     file.remove(fileName)
     #print(result)
     return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
