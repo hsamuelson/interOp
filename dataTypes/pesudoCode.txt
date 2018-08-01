@@ -10,6 +10,7 @@ simple
 int 
 integer
 string
+characters
 double 
 
 Matrix

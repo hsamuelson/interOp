@@ -48,7 +48,6 @@ processFunction <- function(indexIn, argument = ""){
     writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) 
     result <- shell(paste("python", fileName, argument), intern = T)
     file.remove(fileName)
-    #print(result)
     return(result)
     
   }
