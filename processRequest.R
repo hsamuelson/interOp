@@ -23,17 +23,22 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".R")
     
     # Call the datatype() to add on script to create an output
-    tail <- dataType(language = "**R", varType =  allbounds[indexIn,4], fileName = fileName, varName = strsplit(script[titleRows[indexIn],], " ")[[1]][4])
-    #print("WHAT W IS")
-    #print(w)
-    wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
-    #print("From Processs")
-    #print(wFinal)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    # First make sure a name actually exsists
+    # If not just write the regular file
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**R", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
-    #file.remove(fileName)
+    file.remove(fileName)
     #print(result)
     return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
   }

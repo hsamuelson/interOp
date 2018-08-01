@@ -16,6 +16,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
     if(language == "**R"){
       if(varType == "simple"){
         # Do nothing this is already handled.
+        return("")
       } else if(varType == "matrix"){
         #print("dataType Matrix achived")
         # Call standard R code to export to matrix
