@@ -45,7 +45,15 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**python"){
     # Write to file and run
     fileName <- uniqueFileName(".py")
-    writeLines(as.character(w), con = fileName, sep = "\n",  useBytes = FALSE) 
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**python", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) 
     result <- shell(paste("python", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
@@ -53,35 +61,75 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**js"){
     fileName <- uniqueFileName(".js")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**js", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("node", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**lua"){
     fileName <- uniqueFileName(".lua")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**lua", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("lua", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**go"){
     fileName <- uniqueFileName(".go")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**go", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("go run", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**Elixir"){
     fileName <- uniqueFileName(".exs")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**Elixir", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("elixir", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**bat"){
     fileName <- uniqueFileName(".bat")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**bat", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste(fileName, argument), intern = T)
     file.remove(fileName)
     try(
@@ -96,7 +144,15 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**rust"){
     fileName <- uniqueFileName(".rs")
     fileNameWithoutExtension <- uniqueFileName()
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**rust", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     shell(paste("rustc", fileName), intern = T)
     result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
     
@@ -107,21 +163,45 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**ruby"){
     fileName <- uniqueFileName(".rb")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**ruby", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("ruby", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**perl"){
     fileName <- uniqueFileName(".pl")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**perl", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("perl", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
   }
   if(mainTag == "**dart"){
     fileName <- uniqueFileName(".dart")
-    writeLines(as.character(w), con = fileName, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**dart", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("dart", fileName, argument), intern = T)
     file.remove(fileName)
     return(result)
@@ -129,7 +209,15 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**java"){
     fileNameExtension <- uniqueFileName(".java")
     fileNameReg <- uniqueFileName()
-    writeLines(as.character(w), con = fileNameExtension, sep = "\n", useBytes = FALSE)
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+    
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      tail <- dataType(language = "**java", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+    }
+    writeLines(as.character(wFinal), con = fileNameExtension, sep = "\n", useBytes = FALSE)
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
     
