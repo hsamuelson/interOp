@@ -66,4 +66,4 @@ dataType <- function(language, varType, fileName, varName = 0 ){
   }
 }
 
-# Test file
+
