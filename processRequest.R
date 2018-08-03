@@ -129,6 +129,22 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**java"){
     fileNameExtension <- uniqueFileName(".java")
     fileNameReg <- uniqueFileName()
+
+    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+
+
+    if(is.na(exportVarName)) {
+      wFinal <- w
+    } else {
+      head <-supressWarnings(readLines("dataTypes/matrix/javaImports.txt"))
+      newHead <- substr(head, 1, nchar(head)-3)#<--------------------------------------UNTESTED-------------------------------------This is to remove the "}" that closes the class. The reson it is removing the last 3 is because of the "\n" to
+      tail <- dataType(language = "**Java", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
+      withImports <- as.matrix(rbind(as.matrix(head), as.matrix(w)))
+      wFinal <-as.matrix(rbind(as.matrix(withImports), as.matrix(tail)))
+      
+    }
+
+
     writeLines(as.character(w), con = fileNameExtension, sep = "\n", useBytes = FALSE)
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file

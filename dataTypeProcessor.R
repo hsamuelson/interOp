@@ -62,6 +62,26 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       } else {
         return("NOT A VALID DATA TYPE")
       }
+    } else if(language == "**Java"){
+      if(varType =="matrix"){
+        #NOTES
+          # When writing a java module in an interOP file one must write "printCSV();" after the final change of the matrix being returned. See wrapper.interOp for example. 
+          # There Is a 0th chunk for languages that require imports to print to CSV
+          # Java modules cant just be stiched together because of the class thing. A "}" must be removed and then the function can be added. Then the "}" will be placed at the end again.
+
+        #0th chunk
+          #This is for imports it will be placed before the class is declared. it is also in the processRequest File
+
+
+        midSlice <- paste("m_out <-", varName)
+        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
+
+
+        endSplice <- suppressWarnings(readLines("dataTypes/matrix/Java.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
+
+
+      }
     }
   }
 }
