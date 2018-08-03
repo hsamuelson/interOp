@@ -147,3 +147,17 @@ rtester **<< module2
 testRuby **<< module2
 goMod **<< module2
 luaTest **<< module2
+
+**R otherName matrix universal2
+x <- 1:10
+print(x)
+universal2 <- cars
+**/
+
+**python pythonMod matrix unv3
+x = "dog"
+unv3 = x
+**/
+
+** otherName
+** pythonMod
