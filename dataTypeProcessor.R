@@ -52,11 +52,22 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         return("NOT A VALID DATA TYPE") ## THIS needs to actually be handled later with process function.
       }
     }
-    if(language == "**js"){
+    if(language == "**python"){
       if(varType == "simple"){
         # Do nothing this is already handled.
+        return("")
       } else if(varType == "matrix"){
         
+        midSlice <- as.matrix(paste("m_out =", varName))
+        mid_two <- as.matrix(paste("def namestr(obj, namespace):"))
+        mid_three <- as.matrix(paste("   return [name for name in namespace if namespace[name] is obj]"))
+        mid_four <- as.matrix(paste("m_out_name = ", paste0("namestr(", varName, ", globals())" )))
+        midSlice <- as.matrix(rbind(midSlice, mid_two, mid_three, mid_four))
+        
+        endSplice <- suppressWarnings(readLines("dataTypes/matrix/python.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
+        #cat("end slice", endSplice)
+        return(as.matrix(rbind(midSlice, endSplice)))
       } else if(varType == "image"){
         
       } else {
