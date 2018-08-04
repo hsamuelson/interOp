@@ -47,7 +47,12 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         return(as.matrix(rbind(midSlice, endSplice)))
         
       } else if(varType == "image"){
+        midSlice <- paste("m_out <-", varName)
+        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
+        endSplice <- suppressWarnings(readLines("dataTypes/image/r.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
         
+        return(as.matrix(rbind(midSlice, endSplice)))
       } else {
         return("NOT A VALID DATA TYPE") ## THIS needs to actually be handled later with process function.
       }
