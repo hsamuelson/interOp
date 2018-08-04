@@ -1,4 +1,3 @@
-    public static void printCSV(){
         String fileName = m_out_name + ".csv";
         String[][] matrix = m_out;
         try{
