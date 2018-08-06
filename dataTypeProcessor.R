@@ -14,6 +14,9 @@
 dataType <- function(language, varType, fileName, varName = 0 ){
   if(!varName == 0 ){ # If there is no varName just return it must mean the simple tag is being used.
     if(language == "**R"){
+      ### These will be the two default vars passed to the default scripts ###
+      midSlice <- paste("m_out <-", varName)
+      midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
       if(varType == "simple"){
         # Do nothing this is already handled.
         return("")
@@ -35,20 +38,13 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         #3rd chunk
           # This will be the generic code at the end that will export givin the language to a .csv
         
-        ### These will be the two default vars passed to the default scripts ###
-        midSlice <- paste("m_out <-", varName)
-        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
-        #cat("midslice", midSlice)
-        ### ----- ###
-        
         endSplice <- suppressWarnings(readLines("dataTypes/matrix/r.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
         #cat("end slice", endSplice)
         return(as.matrix(rbind(midSlice, endSplice)))
         
       } else if(varType == "image"){
-        midSlice <- paste("m_out <-", varName)
-        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("m_out_name <- substitute(", varName, ")"))))
+        
         endSplice <- suppressWarnings(readLines("dataTypes/image/r.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
         
@@ -58,23 +54,26 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       }
     }
     if(language == "**python"){
+      
+      # These are here because they are used for all data types
+      midSlice <- as.matrix(paste("m_out =", varName))
+      mid_two <- as.matrix(paste("def namestr(obj, namespace):"))
+      mid_three <- as.matrix(paste("   return [name for name in namespace if namespace[name] is obj]"))
+      mid_four <- as.matrix(paste("m_out_name = ", paste0("namestr(", varName, ", globals())" )))
+      midSlice <- as.matrix(rbind(midSlice, mid_two, mid_three, mid_four))
       if(varType == "simple"){
         # Do nothing this is already handled.
         return("")
       } else if(varType == "matrix"){
         
-        midSlice <- as.matrix(paste("m_out =", varName))
-        mid_two <- as.matrix(paste("def namestr(obj, namespace):"))
-        mid_three <- as.matrix(paste("   return [name for name in namespace if namespace[name] is obj]"))
-        mid_four <- as.matrix(paste("m_out_name = ", paste0("namestr(", varName, ", globals())" )))
-        midSlice <- as.matrix(rbind(midSlice, mid_two, mid_three, mid_four))
-        
         endSplice <- suppressWarnings(readLines("dataTypes/matrix/python.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
-        #cat("end slice", endSplice)
         return(as.matrix(rbind(midSlice, endSplice)))
-      } else if(varType == "image"){
         
+      } else if(varType == "image"){
+        endSplice <- suppressWarnings(readLines("dataTypes/image/python.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
+        return(as.matrix(rbind(midSlice, endSplice)))
       } else {
         return("NOT A VALID DATA TYPE")
       }
