@@ -14,11 +14,11 @@ universal2 <- cars
 **/
 
 **java javaTestM matrix universal3
-public class Helloworld {
+public class javaTestM {
 
     public static void main(String[] args) {
-        String[][] matrix = {{a1,b1},{a2,b2}};
-        String[][] universal3 = matrix; printCSV();
+        String[][] matrix = {{"a1","b1"},{"a2","b2"}};
+        String[][] universal3 = matrix; printCSV(universal3);
     }
 
 }

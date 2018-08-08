@@ -73,11 +73,9 @@ dataType <- function(language, varType, fileName, varName = 0 ){
           #This is for imports it will be placed before the class is declared. it is also in the processRequest File
 
 
-        midSlice <- paste(
-          "public static void printCSV(){
-            int[][] m_out = ",varName,";")
-        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("
-            String m_out_name = '",varName,"';"))))
+        midSlice <-"public static void printCSV(String[][] m){  String[][] m_out = m;"
+        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste('
+            String m_out_name = "',varName,'";'))))
 
 
         endSplice <- suppressWarnings(readLines("dataTypes/matrix/java.txt")) #This triggerss a warning but not an concern
