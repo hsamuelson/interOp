@@ -62,7 +62,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       } else {
         return("NOT A VALID DATA TYPE")
       }
-    } else if(language == "**Java"){
+    } else if(language == "**java"){
       if(varType =="matrix"){
         #NOTES
           # When writing a java module in an interOP file one must write "printCSV();" after the final change of the matrix being returned. See wrapper.interOp for example. 
@@ -77,13 +77,13 @@ dataType <- function(language, varType, fileName, varName = 0 ){
           "public static void printCSV(){
             int[][] m_out = ",varName,";")
         midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste("
-            String m_out_name = '", varName,"';"))))
+            String m_out_name = '",varName,"';"))))
 
 
-        endSplice <- suppressWarnings(readLines("dataTypes/matrix/Java.txt")) #This triggerss a warning but not an concern
+        endSplice <- suppressWarnings(readLines("dataTypes/matrix/java.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
 
-
+      return(as.matrix(rbind(midSlice, endSplice)))
       }
     }
   }
