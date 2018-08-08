@@ -215,15 +215,21 @@ processFunction <- function(indexIn, argument = ""){
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
+      wNew <- w[-length(w)]
+      head <-suppressWarnings(readLines("dataTypes/matrix/javaImports.txt"))
       tail <- dataType(language = "**java", varType =  allbounds[indexIn,4], fileName = fileName, varName = exportVarName)
-      wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
+      withImports <- as.matrix(rbind(as.matrix(head), as.matrix(wNew)))
+      wFinal <-as.matrix(rbind(as.matrix(withImports), as.matrix(tail)))
+      
     }
+
+    print(fileNameExtension)
     writeLines(as.character(wFinal), con = fileNameExtension, sep = "\n", useBytes = FALSE)
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
-    
-    file.remove(fileNameExtension)
-    file.remove(paste0(fileNameReg, ".class",collapse = ""))
+   
+    #file.remove(fileNameExtension)
+    #file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
 }

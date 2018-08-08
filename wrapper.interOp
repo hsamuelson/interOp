@@ -13,8 +13,21 @@ print(x)
 universal2 <- cars
 **/
 
+**java javaTestM matrix universal3
+public class javaTestM {
+
+    public static void main(String[] args) {
+        String[][] matrix = {{"a1","b1"},{"a2","b2"}};
+        String[][] universal3 = matrix; printCSV(universal3);
+    }
+
+}
+**/
+
 ** testName
 ** otherName
+** javaTestM
+
 
 **python pythonMod matrix unv3
 x = "dog"
@@ -29,3 +42,4 @@ firstImage <- x
 **/
 
 ** plotR
+
