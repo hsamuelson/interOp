@@ -1,0 +1,10 @@
+import csv
+
+myData = m_out
+m_out_name = ''.join(m_out_name[1]) 
+myFile = open((m_out_name + ".csv"), 'w')  
+with myFile:  
+   writer = csv.writer(myFile)
+   writer.writerows(m_out)
+
+print(m_out_name)
