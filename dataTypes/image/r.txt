@@ -2,3 +2,4 @@
 png(filename=paste0(m_out_name, ".png"))
 plot(m_out)
 garbage <- dev.off()
+print(m_out_name)

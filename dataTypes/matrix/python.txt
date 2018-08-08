@@ -6,3 +6,5 @@ myFile = open((m_out_name + ".csv"), 'w')
 with myFile:  
    writer = csv.writer(myFile)
    writer.writerows(m_out)
+
+print(m_out_name)

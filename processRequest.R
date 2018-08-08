@@ -38,9 +38,10 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
-    file.remove(fileName)
-    #print(result)
-    return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
+    #file.remove(fileName)
+    return(result)
+    # Not sure if this is still needed bc it might be solved by the matrix data type
+    # return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
   }
   if(mainTag == "**python"){
     # Write to file and run

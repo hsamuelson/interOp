@@ -24,11 +24,11 @@ library(foreach)
 
 
 # From loading from a file have to conver to table matrix
-script <- suppressWarnings(readLines(loadScript()))
+#script <- suppressWarnings(readLines(loadScript()))
 
 ## UNCOMMENT THESE FOR DEV
 
-#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
 #script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 script <- as.matrix(script)
 
