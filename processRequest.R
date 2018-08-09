@@ -38,7 +38,7 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
-    #file.remove(fileName)
+    file.remove(fileName)
     return(result)
     # Not sure if this is still needed bc it might be solved by the matrix data type
     # return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
@@ -228,8 +228,8 @@ processFunction <- function(indexIn, argument = ""){
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
    
-    #file.remove(fileNameExtension)
-    #file.remove(paste0(fileNameReg, ".class",collapse = ""))
+    file.remove(fileNameExtension)
+    file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
 }
