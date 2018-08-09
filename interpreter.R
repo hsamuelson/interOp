@@ -186,6 +186,10 @@ master()
 end_time <- Sys.time()
 end_time - start_time
 
+# Clean up all enviorment vars
+# Comment this if you want  to see matrix or image outputs
+source("cleanEnvFile.R")
+cleanEnv()
 
 
 
