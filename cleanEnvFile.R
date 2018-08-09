@@ -9,7 +9,7 @@ library(tools)
 cleanEnv <- function() {
   fileList <- list.files()
   for(i in 1:length(fileList)){
-    if(fileList[i] != "logos.jpg"){
+    if(fileList[i] != "logos.png"){
       extension <- file_ext(fileList[i])
       if(extension == "png" || extension == "csv" || extension == "jpg"){
         file.remove(fileList[i])
