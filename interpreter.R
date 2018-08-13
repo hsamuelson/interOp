@@ -21,35 +21,18 @@ loadScript <- function(){
 if (!require("foreach")) install.packages("foreach", repos='http://cran.us.r-project.org') # The new parallel version requires library parallels
 library(foreach)
 
+devToggle <- 0 # Toggle 1 is dev mode 0 isnt 
 
-
-# From loading from a file have to conver to table matrix
-#script <- suppressWarnings(readLines(loadScript()))
-
-## UNCOMMENT THESE FOR DEV
-
-#script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
+if(devToggle != 1){
+  # From loading from a file have to conver to table matrix
+  script <- suppressWarnings(readLines(loadScript()))
+} else {
+  ## UNCOMMENT THESE FOR DEV
+  
+  #script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+  script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
+}
 script <- as.matrix(script)
-
-# Remove all comments  #######THIS COULD ALL BE NOT WORKING BC YOU HAVENT REDEFINED IT AS A MATRIX?
-# updatedScript <- 0
-# counter <- 1
-# # Remove Spaces
-# for(i in 1:length(script)){
-#   if(script[i] != ""){
-#     updatedScript[counter] <- script[i]
-#     counter = counter + 1
-#   }
-# }
-# 
-# for(i in 1:length(script)){
-#   if(isTRUE(strsplit(script[i], "")[[1]][1] != "#")){
-#     updatedScript[counter] <- script[i]
-#     counter = counter + 1
-#   }
-# }
-# script <- updatedScript
 
 # takes the processed script as input
 findBounds <- function(script, startingVal = 1){
@@ -185,6 +168,13 @@ start_time <- Sys.time()
 master()
 end_time <- Sys.time()
 end_time - start_time
+
+# Clean up all enviorment vars
+# Comment this if you want  to see matrix or image outputs
+if(devToggle == 1) {
+  source("cleanEnvFile.R")
+  cleanEnv()
+}
 
 
 
