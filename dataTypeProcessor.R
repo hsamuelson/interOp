@@ -52,8 +52,7 @@ dataType <- function(language, varType, fileName, varName = 0 ){
       } else {
         return("NOT A VALID DATA TYPE") ## THIS needs to actually be handled later with process function.
       }
-    }
-    if(language == "**python"){
+    }else if(language == "**python"){
       
       # These are here because they are used for all data types
       midSlice <- as.matrix(paste("m_out =", varName))
@@ -94,6 +93,17 @@ dataType <- function(language, varType, fileName, varName = 0 ){
 
 
         endSplice <- suppressWarnings(readLines("dataTypes/matrix/java.txt")) #This triggerss a warning but not an concern
+        endSplice <- as.matrix(endSplice)
+
+      return(as.matrix(rbind(midSlice, endSplice)))
+      }
+    } else if(language == "**js"){
+      if(varType =="matrix"){
+
+        midSlice <- paste("var m_out =", varName)
+        midSlice <- as.matrix(rbind(as.matrix(midSlice), as.matrix(paste('var m_out_name = "',varName,'"'))))
+
+        endSplice <- suppressWarnings(readLines("dataTypes/matrix/js.txt")) #This triggerss a warning but not an concern
         endSplice <- as.matrix(endSplice)
 
       return(as.matrix(rbind(midSlice, endSplice)))

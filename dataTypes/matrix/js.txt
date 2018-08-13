@@ -1,0 +1,8 @@
+
+var name = m_out_name.substring(1, m_out_name.length - 1); 
+
+var fs = require('fs');
+var csv = require('fast-csv');
+var ws = fs.createWriteStream(name + '.csv')
+
+csv.write(m_out, {headers:false}).pipe(ws);

@@ -228,8 +228,8 @@ processFunction <- function(indexIn, argument = ""){
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
    
-    #file.remove(fileNameExtension)
-    #file.remove(paste0(fileNameReg, ".class",collapse = ""))
+    file.remove(fileNameExtension)
+    file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
 }
