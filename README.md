@@ -1,4 +1,5 @@
 ![](https://raw.githubusercontent.com/hsamuelson/interOp/master/logos.png)
+[![Build Status](https://travis-ci.org/hsamuelson/interOp.svg?branch=master)](https://travis-ci.org/hsamuelson/interOp)
 # interOp
 ### Write in any programming language all in the same source file. <br>
 Somethings are just better done in one language over another, but all languages have their shortcomings. Why make this trade? interOp allows you to leverage the power of all programming languages, without forcing yourself to stick to one language. Sometimes data analysis is better in R, but python has better ml libraries, why choose between them and easily program in both with interOp.   
