@@ -21,7 +21,7 @@ loadScript <- function(){
 if (!require("foreach")) install.packages("foreach", repos='http://cran.us.r-project.org') # The new parallel version requires library parallels
 library(foreach)
 
-devToggle <- 0 # Toggle 1 is dev mode 0 isnt 
+devToggle <- 1 # Toggle 1 is dev mode 0 isnt 
 
 if(devToggle != 1){
   # From loading from a file have to conver to table matrix
@@ -29,8 +29,8 @@ if(devToggle != 1){
 } else {
   ## UNCOMMENT THESE FOR DEV
   
-  #script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
-  script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
+  script <- suppressWarnings(readLines("mainScript.interOp")) #This triggers a warning but not an concern
+  #script <- suppressWarnings(readLines("wrapper.interOp")) #This triggerss a warning but not an concern
 }
 script <- as.matrix(script)
 
@@ -171,10 +171,10 @@ end_time - start_time
 
 # Clean up all enviorment vars
 # Comment this if you want  to see matrix or image outputs
-if(devToggle == 1) {
-  source("cleanEnvFile.R")
-  cleanEnv()
-}
+source("cleanEnvFile.R")
+cleanEnv() # cleans advanced data types 
+cleanVars() # removes all system files
+
 
 
 

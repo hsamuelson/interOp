@@ -17,13 +17,20 @@ processFunction <- function(indexIn, argument = ""){
   # determine what runner we will need to call
   mainTag <- strsplit(script[titleRows[indexIn],], " ")[[1]][1]
   
+  #Check if file/function has alread been called / already exsists
+  
+  # This will be the actual var name that will be given to functions.
+  exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
+  
+  # If the file already exsists skip editing it
+  skipWrite <- 0
+  if(exportVarName %in% file_path_sans_ext(list.files())){
+    skipWrite <- 1
+  }
   
   if(mainTag == "**R"){
     # Write to file and run
     fileName <- uniqueFileName(".R")
-    
-    # Call the datatype() to add on script to create an output
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
     
     # First make sure a name actually exsists
     # If not just write the regular file
@@ -38,7 +45,7 @@ processFunction <- function(indexIn, argument = ""){
     result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
     # Not sure if this is still needed bc it might be solved by the matrix data type
     # return(substring(result, 5,1000000L)) # This removes the [1] R console prefix that will mess up other funct args
@@ -46,8 +53,7 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**python"){
     # Write to file and run
     fileName <- uniqueFileName(".py")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -56,14 +62,13 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) 
     result <- shell(paste("python", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
     
   }
   if(mainTag == "**js"){
     fileName <- uniqueFileName(".js")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -72,13 +77,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("node", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**lua"){
     fileName <- uniqueFileName(".lua")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -87,13 +91,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("lua", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**go"){
     fileName <- uniqueFileName(".go")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -102,13 +105,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("go run", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**Elixir"){
     fileName <- uniqueFileName(".exs")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -117,13 +119,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("elixir", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**bat"){
     fileName <- uniqueFileName(".bat")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -132,7 +133,8 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste(fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
+    
     try(
       for(i in 1:length(result)){  #This is to remove the spacing & console prompt output
         if(result[i] == ""){
@@ -145,8 +147,7 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**rust"){
     fileName <- uniqueFileName(".rs")
     fileNameWithoutExtension <- uniqueFileName()
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -157,15 +158,14 @@ processFunction <- function(indexIn, argument = ""){
     shell(paste("rustc", fileName), intern = T)
     result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
     
-    file.remove(paste0(fileNameWithoutExtension,".exe", collapse = "")) # .rs files compile into .exe and .pdb which tha can be run
-    file.remove(paste0(fileNameWithoutExtension,".pdb", collapse = ""))
-    file.remove(fileName)
+    #file.remove(paste0(fileNameWithoutExtension,".exe", collapse = "")) # .rs files compile into .exe and .pdb which tha can be run
+    file.remove(paste0(fileNameWithoutExtension,".pdb", collapse = "")) # leave this one bc this is the only executable
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**ruby"){
     fileName <- uniqueFileName(".rb")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -174,13 +174,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("ruby", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**perl"){
     fileName <- uniqueFileName(".pl")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -189,13 +188,12 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("perl", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**dart"){
     fileName <- uniqueFileName(".dart")
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -204,14 +202,13 @@ processFunction <- function(indexIn, argument = ""){
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
     result <- shell(paste("dart", fileName, argument), intern = T)
-    file.remove(fileName)
+    #file.remove(fileName)
     return(result)
   }
   if(mainTag == "**java"){
     fileNameExtension <- uniqueFileName(".java")
     fileNameReg <- uniqueFileName()
-    exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
-    
+
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -223,12 +220,12 @@ processFunction <- function(indexIn, argument = ""){
       
     }
 
-    print(fileNameExtension)
+    
     writeLines(as.character(wFinal), con = fileNameExtension, sep = "\n", useBytes = FALSE)
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
    
-    file.remove(fileNameExtension)
+    #file.remove(fileNameExtension)
     file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
