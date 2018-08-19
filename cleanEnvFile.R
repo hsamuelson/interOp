@@ -4,8 +4,7 @@
 # This runner cleans out the leftver matrix and image fils that are left behind
 # in the "session" 
 
-if (!require("tools")) install.packages("tools", repos='http://cran.us.r-project.org')
-library(tools)
+# These use the library(tools) but is called in interpreter
 cleanEnv <- function() {
   fileList <- list.files()
   for(i in 1:length(fileList)){

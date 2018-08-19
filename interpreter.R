@@ -20,6 +20,8 @@ loadScript <- function(){
 }
 if (!require("foreach")) install.packages("foreach", repos='http://cran.us.r-project.org') # The new parallel version requires library parallels
 library(foreach)
+if (!require("tools")) install.packages("tools", repos='http://cran.us.r-project.org')
+library(tools)
 
 devToggle <- 1 # Toggle 1 is dev mode 0 isnt 
 
