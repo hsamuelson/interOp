@@ -30,7 +30,7 @@ Other Versions of the langauges work, these are just the tested versions
 
 ## Installation
 See this link for installation instructions: <br>
-https://github.com/hsamuelson/interOp/blob/master/installation.md
+https://github.com/hsamuelson/interOp/blob/master/documentation/installation.md
 
 ## Syntax 
 
