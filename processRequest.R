@@ -64,7 +64,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".py")
     
     if(file.exists(fileName)){
-      result <- shell(paste("python", fileName, argument), intern = T)
+      result <- shell(paste(python_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -74,7 +74,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) 
-    result <- shell(paste("python", fileName, argument), intern = T)
+    result <- shell(paste(python_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
     
@@ -83,7 +83,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".js")
     
     if(file.exists(fileName)){
-      result <- shell(paste("node", fileName, argument), intern = T)
+      result <- shell(paste(js_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -93,7 +93,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("node", fileName, argument), intern = T)
+    result <- shell(paste(js_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -101,7 +101,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".lua")
     
     if(file.exists(fileName)){
-      result <- shell(paste("lua", fileName, argument), intern = T)
+      result <- shell(paste(lua_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -111,7 +111,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("lua", fileName, argument), intern = T)
+    result <- shell(paste(lua_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -119,7 +119,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".go")
     
     if(file.exists(fileName)){
-      result <- shell(paste("go run", fileName, argument), intern = T)
+      result <- shell(paste(go_path, "run", fileName, argument), intern = T)
       return(result)
     }
     
@@ -130,7 +130,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("go run", fileName, argument), intern = T)
+    result <- shell(paste(go_path, "run", fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -138,7 +138,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".exs")
     
     if(file.exists(fileName)){
-      result <- shell(paste("elixir", fileName, argument), intern = T)
+      result <- shell(paste(elixir_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -149,7 +149,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("elixir", fileName, argument), intern = T)
+    result <- shell(paste(elixir_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -205,7 +205,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    shell(paste("rustc", fileName), intern = T)
+    shell(paste(rust_path, fileName), intern = T)
     result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
     
     #file.remove(paste0(fileNameWithoutExtension,".exe", collapse = "")) # .rs files compile into .exe and .pdb which tha can be run
@@ -217,7 +217,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".rb")
     
     if(file.exists(fileName)){
-      result <- shell(paste("ruby", fileName, argument), intern = T)
+      result <- shell(paste(ruby_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -228,7 +228,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("ruby", fileName, argument), intern = T)
+    result <- shell(paste(ruby_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -236,7 +236,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".pl")
     
     if(file.exists(fileName)){
-      result <- shell(paste("perl", fileName, argument), intern = T)
+      result <- shell(paste(perl_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -247,7 +247,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("perl", fileName, argument), intern = T)
+    result <- shell(paste(perl_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -255,7 +255,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".dart")
     
     if(file.exists(fileName)){
-      result <- shell(paste("dart", fileName, argument), intern = T)
+      result <- shell(paste(dart_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -266,7 +266,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste("dart", fileName, argument), intern = T)
+    result <- shell(paste(dart_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }

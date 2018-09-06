@@ -94,7 +94,8 @@ if(length(allbounds) != 4) {
 } else {
   print("faital script error")
 }
-source("processRequest.R")
+source("setPaths.R") # Sets global vars for lang paths
+source("processRequest.R") # loads processRequest() func
 
 Piper <- function(firstFunc, secondFunc){
   
@@ -112,6 +113,8 @@ master <- function(){
   # this loop reads through the script and compiles a new script which 
   # is comprized of only function calls and interOp operations. This list
   # Is then run in parallel.
+  
+  start_time <- Sys.time()
   counter <- 1
   funcList <- numeric() # This will be the list of preprocessed functions passed to the foreach()
   for(i in 1:length(script)){
@@ -139,7 +142,7 @@ master <- function(){
   if(length(funcList) == 0) {
     return("No Function Calls. What are you doing?")
   }
-  #parallelLoop
+  # parallelLoop
   tt <- suppressWarnings(foreach(i=1:length(funcList)) %do% { # defining this to tt to avoid unwanted console output
     
     headTag <- strsplit(funcList[i], " ")[[1]]
@@ -165,17 +168,19 @@ master <- function(){
       }
     }
   })
+  end_time <- Sys.time()
+  print(end_time - start_time)
+  # Clean up all enviorment vars
+  # Comment this if you want  to see matrix or image outputs
+  source("cleanEnvFile.R")
+  cleanEnv() # cleans advanced data types 
+  cleanVars() # removes all system files
 }
-start_time <- Sys.time()
-master()
-end_time <- Sys.time()
-end_time - start_time
 
-# Clean up all enviorment vars
-# Comment this if you want  to see matrix or image outputs
-source("cleanEnvFile.R")
-cleanEnv() # cleans advanced data types 
-cleanVars() # removes all system files
+master()
+
+
+
 
 
 
