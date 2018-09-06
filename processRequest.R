@@ -23,14 +23,23 @@ processFunction <- function(indexIn, argument = ""){
   exportVarName <- strsplit(script[titleRows[indexIn],], " ")[[1]][4]
   
   # If the file already exsists skip editing it
-  skipWrite <- 0
-  if(exportVarName %in% file_path_sans_ext(list.files())){
-    skipWrite <- 1
-  }
+  # skipWrite <- 0
+  # if(exportVarName %in% file_path_sans_ext(list.files())){
+  #   skipWrite <- 1
+  # }
   
   if(mainTag == "**R"){
     # Write to file and run
     fileName <- uniqueFileName(".R")
+    
+    #First check to see if the file has already been generated earlier
+    # If not run the file generation process
+    # If it exsists simplily run the script with the argument
+    if(file.exists(fileName)){
+      result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+      return(result)
+      # The program should'nt get past this point if the file does exsist so we don't need an else{} statement
+    } 
     
     # First make sure a name actually exsists
     # If not just write the regular file
@@ -53,7 +62,11 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**python"){
     # Write to file and run
     fileName <- uniqueFileName(".py")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("python", fileName, argument), intern = T)
+      return(result)
+    }
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -68,7 +81,11 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**js"){
     fileName <- uniqueFileName(".js")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("node", fileName, argument), intern = T)
+      return(result)
+    }
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -82,7 +99,11 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**lua"){
     fileName <- uniqueFileName(".lua")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("lua", fileName, argument), intern = T)
+      return(result)
+    }
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -96,7 +117,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**go"){
     fileName <- uniqueFileName(".go")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("go run", fileName, argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -110,7 +136,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**Elixir"){
     fileName <- uniqueFileName(".exs")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("elixir", fileName, argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -124,7 +155,19 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**bat"){
     fileName <- uniqueFileName(".bat")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste(fileName, argument), intern = T)
+      try(
+        for(i in 1:length(result)){  #This is to remove the spacing & console prompt output
+          if(result[i] == ""){
+            result = result[-(i:(i+1))]
+          }
+        },
+        silent=TRUE)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -147,7 +190,14 @@ processFunction <- function(indexIn, argument = ""){
   if(mainTag == "**rust"){
     fileName <- uniqueFileName(".rs")
     fileNameWithoutExtension <- uniqueFileName()
-
+    #Before generating anything else check to see if it already exsists
+    #If it does there is no point in recompiling the file
+    #Simpily pass new args
+    if(file.exists(fileName)){
+      result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -165,7 +215,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**ruby"){
     fileName <- uniqueFileName(".rb")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("ruby", fileName, argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -179,7 +234,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**perl"){
     fileName <- uniqueFileName(".pl")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("perl", fileName, argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -193,7 +253,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**dart"){
     fileName <- uniqueFileName(".dart")
-
+    
+    if(file.exists(fileName)){
+      result <- shell(paste("dart", fileName, argument), intern = T)
+      return(result)
+    }
+    
     if(is.na(exportVarName)) {
       wFinal <- w
     } else {
@@ -207,6 +272,12 @@ processFunction <- function(indexIn, argument = ""){
   }
   if(mainTag == "**java"){
     fileNameExtension <- uniqueFileName(".java")
+    
+    if(file.exists(fileNameExtension)){
+      result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
+      return(result)
+    }
+    
     fileNameReg <- uniqueFileName()
 
     if(is.na(exportVarName)) {
@@ -220,13 +291,12 @@ processFunction <- function(indexIn, argument = ""){
       
     }
 
-    
     writeLines(as.character(wFinal), con = fileNameExtension, sep = "\n", useBytes = FALSE)
     shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
     result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
    
     #file.remove(fileNameExtension)
-    file.remove(paste0(fileNameReg, ".class",collapse = ""))
+    #file.remove(paste0(fileNameReg, ".class",collapse = ""))
     return(result)
   }
 }

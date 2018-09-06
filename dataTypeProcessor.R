@@ -49,6 +49,10 @@ dataType <- function(language, varType, fileName, varName = 0 ){
         endSplice <- as.matrix(endSplice)
         
         return(as.matrix(rbind(midSlice, endSplice)))
+        
+      } else if(varType == "boolean"){
+        #sif(result)
+        
       } else {
         return("NOT A VALID DATA TYPE") ## THIS needs to actually be handled later with process function.
       }
