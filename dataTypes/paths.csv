@@ -1,0 +1,13 @@
+language,path
+R,ALWAYS FINDS IT ITSELF
+python,python
+js,node
+lua,lua
+go,go
+elixir,elixir
+bat,NO EXTENTION NEEDED THIS IS NATIVE WINDOWS
+rust,rustc
+ruby,ruby
+perl,perl
+dart,dart
+java,C:\Program Files\Java\jdk1.8.0_171\bin\
