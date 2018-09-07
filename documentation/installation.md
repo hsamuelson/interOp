@@ -1,10 +1,11 @@
 # Installation 
 ## Requirements
-Windows or Linux (Preferably) windows <br>
+Windows or Unix (Preferably) windows <br>
 For Linux spesific install see this page: https://github.com/hsamuelson/interOp/blob/master/documentation/linux.md
 The easiest way of setting up is to download the newest binary from the Releases page. Otherwise you will need to point the main interpreter to a version of R yourself.
 ## Download and Install Languages
-It is a requirement (with the exception of the R language) that all programming languages be in your %PATH%. (Whenever installing a new language, there is always an option to add it to the path).
+It is a requirement (with the exception of the R language) that all programming languages be in your %PATH%. (Whenever installing a new language, there is always an option to add it to the path). <br>
+If the languages are not added to your path please change the default path in ```paths.csv``` to the correct path the main executable. If the langauge is already added to the path it's path in ```paths.csv``` should be the name of the language, for example ```pyhon```.
 <br>
 Find the recommended versions here:<br>
 node.js: https://nodejs.org/en/download/ <br>
