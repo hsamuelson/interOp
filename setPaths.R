@@ -16,7 +16,15 @@
 # Then get them into system vars that can be accessed later.
 path_list <- read.csv("dataTypes/paths.csv")
 
-# r_path <- path_list$path[] # Doesnt need this path
+# The R path has to be different given the os_version (system var)
+if(os_version == 0){
+  # Windows
+  # This looks for your R version are runs
+  r_path <- paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse ="")
+} else {
+  # Unix 
+  r_path <- "Rscript"
+}
 python_path <- path_list$path[2]
 js_path <- path_list$path[3]
 lua_path <- path_list$path[4]

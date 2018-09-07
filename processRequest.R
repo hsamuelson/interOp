@@ -36,7 +36,7 @@ processFunction <- function(indexIn, argument = ""){
     # If not run the file generation process
     # If it exsists simplily run the script with the argument
     if(file.exists(fileName)){
-      result <- system(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+      result <- system(paste(r_path, fileName, argument), intern = T)
       return(result)
       # The program should'nt get past this point if the file does exsist so we don't need an else{} statement
     } 
@@ -51,7 +51,7 @@ processFunction <- function(indexIn, argument = ""){
     }
     
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
-    result <- system(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+    result <- system(paste(r_path, fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
     #file.remove(fileName)
