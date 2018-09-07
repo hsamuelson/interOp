@@ -4,14 +4,13 @@
 # This is the main interpreter. This is used to read through the file and call the respective libraries
 # 
 
-
+rm(list=ls()) #This clears all system vars to avoid errors
 #First Check OS type:
 os_version <- 0 
 if(Sys.info()[1] != "Windows"){
   os_version <- 1
 }
 # TO read console input for ths program
-rm(list=ls()) #This clears all system vars to avoid errors
 args <- commandArgs(trailingOnly = TRUE)
 loadScript <- function(){
   fileName <- ""
@@ -38,7 +37,7 @@ library(foreach)
 if (!require("tools")) install.packages("tools", repos='http://cran.us.r-project.org')
 library(tools)
 
-devToggle <- 1 # Toggle 1 is dev mode 0 isnt 
+devToggle <- 0 # Toggle 1 is dev mode 0 isnt 
 
 if(devToggle != 1){
   # From loading from a file have to conver to table matrix
