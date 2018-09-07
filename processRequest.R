@@ -36,7 +36,7 @@ processFunction <- function(indexIn, argument = ""){
     # If not run the file generation process
     # If it exsists simplily run the script with the argument
     if(file.exists(fileName)){
-      result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+      result <- system(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
       return(result)
       # The program should'nt get past this point if the file does exsist so we don't need an else{} statement
     } 
@@ -51,7 +51,7 @@ processFunction <- function(indexIn, argument = ""){
     }
     
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) # auto indents lines
-    result <- shell(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
+    result <- system(paste(paste0(Sys.getenv("R_HOME"), "/bin/Rscript.exe", collapse =""), fileName, argument), intern = T)
     # Call dataType Processorn to test data types
     
     #file.remove(fileName)
@@ -64,7 +64,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".py")
     
     if(file.exists(fileName)){
-      result <- shell(paste(python_path, fileName, argument), intern = T)
+      result <- system(paste(python_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -74,7 +74,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n",  useBytes = FALSE) 
-    result <- shell(paste(python_path, fileName, argument), intern = T)
+    result <- system(paste(python_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
     
@@ -83,7 +83,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".js")
     
     if(file.exists(fileName)){
-      result <- shell(paste(js_path, fileName, argument), intern = T)
+      result <- system(paste(js_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -93,7 +93,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(js_path, fileName, argument), intern = T)
+    result <- system(paste(js_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -101,7 +101,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".lua")
     
     if(file.exists(fileName)){
-      result <- shell(paste(lua_path, fileName, argument), intern = T)
+      result <- system(paste(lua_path, fileName, argument), intern = T)
       return(result)
     }
     if(is.na(exportVarName)) {
@@ -111,7 +111,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(lua_path, fileName, argument), intern = T)
+    result <- system(paste(lua_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -119,7 +119,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".go")
     
     if(file.exists(fileName)){
-      result <- shell(paste(go_path, "run", fileName, argument), intern = T)
+      result <- system(paste(go_path, "run", fileName, argument), intern = T)
       return(result)
     }
     
@@ -130,7 +130,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(go_path, "run", fileName, argument), intern = T)
+    result <- system(paste(go_path, "run", fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -138,7 +138,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".exs")
     
     if(file.exists(fileName)){
-      result <- shell(paste(elixir_path, fileName, argument), intern = T)
+      result <- system(paste(elixir_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -149,7 +149,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(elixir_path, fileName, argument), intern = T)
+    result <- system(paste(elixir_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -157,7 +157,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".bat")
     
     if(file.exists(fileName)){
-      result <- shell(paste(fileName, argument), intern = T)
+      result <- system(paste(fileName, argument), intern = T)
       try(
         for(i in 1:length(result)){  #This is to remove the spacing & console prompt output
           if(result[i] == ""){
@@ -175,7 +175,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(fileName, argument), intern = T)
+    result <- system(paste(fileName, argument), intern = T)
     #file.remove(fileName)
     
     try(
@@ -194,7 +194,7 @@ processFunction <- function(indexIn, argument = ""){
     #If it does there is no point in recompiling the file
     #Simpily pass new args
     if(file.exists(fileName)){
-      result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
+      result <- system(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
       return(result)
     }
     
@@ -205,8 +205,8 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    shell(paste(rust_path, fileName), intern = T)
-    result <- shell(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
+    system(paste(rust_path, fileName), intern = T)
+    result <- system(paste(paste0(fileNameWithoutExtension,".exe", collapse = ""), argument), intern = T)
     
     #file.remove(paste0(fileNameWithoutExtension,".exe", collapse = "")) # .rs files compile into .exe and .pdb which tha can be run
     file.remove(paste0(fileNameWithoutExtension,".pdb", collapse = "")) # leave this one bc this is the only executable
@@ -217,7 +217,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".rb")
     
     if(file.exists(fileName)){
-      result <- shell(paste(ruby_path, fileName, argument), intern = T)
+      result <- system(paste(ruby_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -228,7 +228,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(ruby_path, fileName, argument), intern = T)
+    result <- system(paste(ruby_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -236,7 +236,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".pl")
     
     if(file.exists(fileName)){
-      result <- shell(paste(perl_path, fileName, argument), intern = T)
+      result <- system(paste(perl_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -247,7 +247,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(perl_path, fileName, argument), intern = T)
+    result <- system(paste(perl_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -255,7 +255,7 @@ processFunction <- function(indexIn, argument = ""){
     fileName <- uniqueFileName(".dart")
     
     if(file.exists(fileName)){
-      result <- shell(paste(dart_path, fileName, argument), intern = T)
+      result <- system(paste(dart_path, fileName, argument), intern = T)
       return(result)
     }
     
@@ -266,7 +266,7 @@ processFunction <- function(indexIn, argument = ""){
       wFinal <- as.matrix(rbind(as.matrix(w), as.matrix(tail)))
     }
     writeLines(as.character(wFinal), con = fileName, sep = "\n", useBytes = FALSE)
-    result <- shell(paste(dart_path, fileName, argument), intern = T)
+    result <- system(paste(dart_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
   }
@@ -274,7 +274,7 @@ processFunction <- function(indexIn, argument = ""){
     fileNameExtension <- uniqueFileName(".java")
     
     if(file.exists(fileNameExtension)){
-      result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
+      result <- system(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
       return(result)
     }
     
@@ -292,8 +292,8 @@ processFunction <- function(indexIn, argument = ""){
     }
 
     writeLines(as.character(wFinal), con = fileNameExtension, sep = "\n", useBytes = FALSE)
-    shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
-    result <- shell(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
+    system(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\javac.exe"', fileNameExtension)) #needs to compile .class
+    result <- system(paste('"C:\\Program Files\\Java\\jdk1.8.0_171\\bin\\java.exe"', fileNameReg, argument), intern = T) #this runs the class file
    
     #file.remove(fileNameExtension)
     #file.remove(paste0(fileNameReg, ".class",collapse = ""))

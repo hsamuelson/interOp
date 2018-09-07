@@ -4,13 +4,28 @@
 # This is the main interpreter. This is used to read through the file and call the respective libraries
 # 
 
+
+#First Check OS type:
+os_version <- 0 
+if(Sys.info()[1] != "Windows"){
+  os_version <- 1
+}
 # TO read console input for ths program
 rm(list=ls()) #This clears all system vars to avoid errors
 args <- commandArgs(trailingOnly = TRUE)
 loadScript <- function(){
   fileName <- ""
+  
+  # If no input open manual file prompt
   if(is.na(args[1])){
-    fileName <- choose.files()
+    # Check os type then decide what to do
+    # choose.files() doesnt run on unix
+    if(os_version == 0){
+      fileName <- choose.files() 
+    } else if(os_version == 1){
+      require(tcltk)
+      fileName<- tk_choose.files()
+    }
   } else if(args[1] == 1){
     fileName <- "mainScript.interOp"
   } else {
