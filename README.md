@@ -63,6 +63,6 @@ Inputing the number ```1``` as an arg will default the script to reading ```main
 You can also run the ```interpreter.R``` file to process the code. If you want to run it in a live R enviorment, simply load ```interpreter.R``` and then run ```master()``` to re-run code.
 
 ## Credits
-Ideation, Creation, and Implementation: Henry Samuelson <br>
-Additional Implementation: Samuel Freisem-Kirov <br>
-Credits: Henry Meng
+Henry Samuelson <br>
+Samuel Freisem-Kirov <br>
+Henry Meng
