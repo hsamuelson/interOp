@@ -1,6 +1,6 @@
 # Installation 
 ## Requirements
-Unix or Windows (preferred) <br><br>
+Unix or Windows (preferred): <br><br>
 For Linux specific installation see this page: https://github.com/hsamuelson/interOp/blob/master/documentation/linux.md <br>
 The easiest set-up method is to download the newest binary from the Releases page. Otherwise it will be necessary for you to point the main interpreter to your own version of R.
 ## Download and Install Languages
