@@ -77,8 +77,8 @@ processFunction <- function(indexIn, argument = ""){
     result <- system(paste(python_path, fileName, argument), intern = T)
     #file.remove(fileName)
     return(result)
-    
   }
+  
   if(mainTag == "**js"){
     fileName <- uniqueFileName(".js")
     

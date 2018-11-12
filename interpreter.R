@@ -37,7 +37,7 @@ library(foreach)
 if (!require("tools")) install.packages("tools", repos='http://cran.us.r-project.org')
 library(tools)
 
-devToggle <- 0 # Toggle 1 is dev mode 0 isnt 
+devToggle <- 1 # Toggle 1 is dev mode 0 isnt 
 
 if(devToggle != 1){
   # From loading from a file have to conver to table matrix
@@ -186,9 +186,9 @@ master <- function(){
   print(end_time - start_time)
   # Clean up all enviorment vars
   # Comment this if you want  to see matrix or image outputs
-  source("cleanEnvFile.R")
-  cleanEnv() # cleans advanced data types 
-  cleanVars() # removes all system files
+  #source("cleanEnvFile.R")
+  #cleanEnv() # cleans advanced data types 
+  #cleanVars() # removes all system files
 }
 
 master()
